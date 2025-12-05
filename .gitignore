@@ -1,0 +1,23 @@
+# Core do WordPress
+wp-admin/
+wp-includes/
+wp-content/cache/
+wp-content/uploads/
+wp-content/upgrade/
+wp-content/backups/
+wp-content/cache/
+wp-content/wflogs/
+
+# Config e sensíveis
+wp-config.php
+wp-config-local.php
+*.log
+
+# Sistema / IDE
+.DS_Store
+*.swp
+*.swo
+.idea/
+.vscode/
+node_modules/
+vendor/
