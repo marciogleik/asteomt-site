@@ -10,7 +10,11 @@ async function bootstrap() {
 
   // Habilita CORS para o frontend
   app.enableCors({
-    origin: process.env.FRONTEND_URL || 'http://localhost:5173',
+    origin: [
+      process.env.FRONTEND_URL || 'http://localhost:5173',
+      'https://asteomt.com.br',
+      'https://www.asteomt.com.br',
+    ],
     credentials: true,
   });
 
