@@ -1,0 +1,105 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model User {
+  id             String          @id @default(cuid())
+  email          String          @unique
+  passwordHash   String
+  name           String
+  role           UserRole        @default(MEMBER)
+  isActive       Boolean         @default(true)
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+
+  memberProfile  MemberProfile?
+  payments       Payment[]
+  certificates   Certificate[]
+}
+
+model MemberProfile {
+  id              String        @id @default(cuid())
+  userId          String        @unique
+  fullName        String
+  documentId      String?       // CRM, CPF, registro profissional, etc.
+  status          MemberStatus  @default(PENDING)
+  validUntil      DateTime?     // validade da anuidade
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+
+  user            User          @relation(fields: [userId], references: [id])
+}
+
+model MembershipPlan {
+  id          String       @id @default(cuid())
+  name        String
+  description String?
+  priceCents  Int
+  periodMonths Int        @default(12)
+  isActive    Boolean     @default(true)
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  payments    Payment[]
+}
+
+model Payment {
+  id              String           @id @default(cuid())
+  userId          String
+  planId          String
+  amountCents     Int
+  currency        String           @default("BRL")
+  status          PaymentStatus    @default(PENDING)
+  provider        String?          // pagarme, etc.
+  providerChargeId String?         // id da cobrança no gateway
+  paidAt          DateTime?
+  createdAt       DateTime         @default(now())
+
+  user            User             @relation(fields: [userId], references: [id])
+  plan            MembershipPlan   @relation(fields: [planId], references: [id])
+  certificate     Certificate?
+}
+
+model Certificate {
+  id              String     @id @default(cuid())
+  userId          String
+  paymentId       String     @unique
+  title           String
+  issuedAt        DateTime   @default(now())
+  validUntil      DateTime?
+  createdAt       DateTime   @default(now())
+
+  user            User       @relation(fields: [userId], references: [id])
+  payment         Payment    @relation(fields: [paymentId], references: [id])
+}
+
+enum UserRole {
+  ADMIN
+  MEMBER
+}
+
+enum MemberStatus {
+  PENDING
+  ACTIVE
+  EXPIRED
+  BLOCKED
+}
+
+enum PaymentStatus {
+  PENDING
+  PAID
+  FAILED
+  CANCELED
+}
