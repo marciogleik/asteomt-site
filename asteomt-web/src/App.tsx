@@ -5,6 +5,7 @@ import { Home } from './pages/Home';
 import { Login } from './pages/Login';
 import { MemberDashboard } from './pages/MemberDashboard';
 import { Noticias } from './pages/Noticias';
+import { Registro } from './pages/Registro';
 import './App.css';
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
@@ -28,6 +29,7 @@ function AppRoutes() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/noticias" element={<Noticias />} />
+        <Route path="/registro" element={<Registro />} />
         <Route path="/login" element={<Login />} />
         <Route
           path="/area-membro"

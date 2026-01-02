@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import leonardoImg from '../assets/images/leonardo-ribeiro.jpg';
+import heroBackground from '../assets/images/noticias/audiencia-2.jpg';
 import './Home.css';
 
 export function Home() {
@@ -9,11 +10,12 @@ export function Home() {
   return (
     <div className="home">
       {/* Hero Section - Centralizada */}
-      <section className="hero">
+      <section className="hero" style={{ backgroundImage: `url(${heroBackground})` }}>
+        <div className="hero-overlay"></div>
         <div className="hero-content">
           <h1 className="hero-title">
-            Associação dos Técnicos em<br />
-            <span className="highlight">Órteses e Próteses</span> de Mato Grosso
+            Associação Matogrossense dos Técnicos de<br />
+            <span className="highlight">Imobilizações Ortopédicas</span>
           </h1>
           <p className="hero-subtitle">
             Conectando profissionais, fortalecendo a categoria e promovendo o desenvolvimento técnico-científico.
@@ -25,12 +27,12 @@ export function Home() {
               </Link>
             ) : (
               <>
-                <Link to="/login" className="btn-primary">
-                  Entrar
+                <Link to="/registro" className="btn-primary">
+                  Filiar-se
                 </Link>
-                <a href="#sobre" className="btn-secondary">
-                  Saiba mais
-                </a>
+                <Link to="/login" className="btn-secondary">
+                  Já sou membro
+                </Link>
               </>
             )}
           </div>
