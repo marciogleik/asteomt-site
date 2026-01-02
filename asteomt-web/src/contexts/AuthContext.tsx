@@ -28,23 +28,44 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     try {
       const response = await api.get('/auth/me');
       setUser(response.data);
-    } catch {
+      return response.data;
+    } catch (error) {
       setUser(null);
+      localStorage.removeItem('token');
+      throw error;
+    } finally {
+      setIsLoading(false);
     }
   };
 
   useEffect(() => {
-    refreshUser().finally(() => setIsLoading(false));
+    const token = localStorage.getItem('token');
+    if (token) {
+      refreshUser().catch(() => {
+        setUser(null);
+        localStorage.removeItem('token');
+      });
+    } else {
+      setIsLoading(false);
+    }
   }, []);
 
   const login = async (email: string, password: string) => {
     const response = await api.post('/auth/login', { email, password });
-    setUser(response.data.user);
+    if (response.data.token) {
+      localStorage.setItem('token', response.data.token);
+      await refreshUser();
+    }
   };
 
   const logout = async () => {
-    await api.post('/auth/logout');
-    setUser(null);
+    try {
+      await api.post('/auth/logout');
+    } finally {
+      setUser(null);
+      localStorage.removeItem('token');
+      window.location.href = '/login';
+    }
   };
 
   return (

@@ -1,11 +1,9 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
-import { Header } from './components/Header';
-import { Home } from './pages/Home';
-import { Login } from './pages/Login';
-import { MemberDashboard } from './pages/MemberDashboard';
-import { Noticias } from './pages/Noticias';
-import { Registro } from './pages/Registro';
+import Header from './components/Header';
+import Home from './pages/Home';
+import Login from './pages/Login';
+import Register from './pages/Register';
 import './App.css';
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
@@ -15,42 +13,34 @@ function ProtectedRoute({ children }: { children: React.ReactNode }) {
     return <div className="loading">Carregando...</div>;
   }
 
-  if (!isAuthenticated) {
-    return <Navigate to="/login" replace />;
-  }
-
-  return <>{children}</>;
-}
-
-function AppRoutes() {
-  return (
-    <>
-      <Header />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/noticias" element={<Noticias />} />
-        <Route path="/registro" element={<Registro />} />
-        <Route path="/login" element={<Login />} />
-        <Route
-          path="/area-membro"
-          element={
-            <ProtectedRoute>
-              <MemberDashboard />
-            </ProtectedRoute>
-          }
-        />
-      </Routes>
-    </>
-  );
+  return isAuthenticated ? <>{children}</> : <Navigate to="/login" replace />;
 }
 
 function App() {
   return (
-    <BrowserRouter>
-      <AuthProvider>
-        <AppRoutes />
-      </AuthProvider>
-    </BrowserRouter>
+    <AuthProvider>
+      <BrowserRouter>
+        <div className="app">
+          <Header />
+          <main>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/registro" element={<Register />} />
+              <Route
+                path="/area-membro"
+                element={
+                  <ProtectedRoute>
+                    <div>Área do Membro</div>
+                  </ProtectedRoute>
+                }
+              />
+              <Route path="*" element={<Navigate to="/" replace />} />
+            </Routes>
+          </main>
+        </div>
+      </BrowserRouter>
+    </AuthProvider>
   );
 }
 
