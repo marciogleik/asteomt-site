@@ -1,26 +1,16 @@
 .home {
-  padding-top: 70px;
-  flex: 1;
   width: 100%;
-  overflow-x: hidden;
 }
 
-/* ========================================
-   HERO SECTION - COM IMAGEM DE FUNDO
-   ======================================== */
+/* Hero Section */
 .hero {
-  min-height: calc(100vh - 70px);
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 3rem 1.5rem;
   position: relative;
+  height: 500px;
   background-size: cover;
   background-position: center;
-  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  color: white;
 }
 
 .hero-overlay {
@@ -29,477 +19,392 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(
-    135deg,
-    rgba(15, 23, 42, 0.95) 0%,
-    rgba(15, 23, 42, 0.9) 50%,
-    rgba(37, 99, 235, 0.85) 100%
-  );
-  backdrop-filter: blur(2px);
+  background: linear-gradient(90deg, rgba(0, 75, 130, 0.9) 0%, rgba(0, 75, 130, 0.4) 100%);
   z-index: 1;
 }
 
-.hero-content {
-  width: 100%;
-  max-width: 800px;
-  margin-left: auto;
-  margin-right: auto;
+.hero-container {
   position: relative;
   z-index: 2;
 }
 
-.hero-title {
-  font-size: 2.5rem;
-  font-weight: 800;
-  color: #ffffff;
-  line-height: 1.2;
-  margin-bottom: 1rem;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+.hero-content {
+  max-width: 700px;
 }
 
-.hero-title .highlight {
-  color: #60a5fa;
+.hero-tag {
+  display: inline-block;
+  background: var(--gov-yellow);
+  color: var(--gov-blue-dark);
+  padding: 0.25rem 0.75rem;
+  font-weight: 800;
+  font-size: 0.75rem;
+  margin-bottom: 1rem;
+  letter-spacing: 1px;
+}
+
+.hero-title {
+  font-size: 3rem;
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+  letter-spacing: -2px;
+}
+
+.hero-title strong {
+  color: var(--gov-yellow);
 }
 
 .hero-subtitle {
   font-size: 1.1rem;
-  color: rgba(255, 255, 255, 0.9);
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
+  opacity: 0.9;
   margin-bottom: 2rem;
-  text-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
+  line-height: 1.6;
 }
 
 .hero-actions {
   display: flex;
-  justify-content: center;
   gap: 1rem;
 }
 
-@media (max-width: 768px) {
-  .hero {
-    min-height: auto;
-    padding: 3rem 1rem;
-  }
-
-  .hero-title {
-    font-size: 1.75rem;
-  }
-}
-
 .btn-primary {
-  display: inline-flex;
-  align-items: center;
-  padding: 0.75rem 1.75rem;
-  border-radius: 999px;
-  background: linear-gradient(135deg, #2563eb, #0ea5e9);
-  color: #ffffff;
-  font-size: 1rem;
-  font-weight: 600;
-  text-decoration: none;
-  box-shadow: 0 8px 24px rgba(37, 99, 235, 0.35);
-  transition: transform 0.15s, box-shadow 0.15s;
+  background-color: var(--gov-green);
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 4px;
+  font-weight: 800;
+  font-size: 0.95rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  text-transform: uppercase;
 }
 
 .btn-primary:hover {
+  background-color: #009657;
   transform: translateY(-2px);
-  box-shadow: 0 12px 32px rgba(37, 99, 235, 0.45);
 }
 
-.btn-secondary {
-  display: inline-flex;
+.btn-outline {
+  border: 2px solid white;
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 4px;
+  font-weight: 800;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+}
+
+.btn-outline:hover {
+  background-color: white;
+  color: var(--gov-blue-dark);
+}
+
+/* Quick Access */
+.quick-access {
+  margin-top: -50px;
+  position: relative;
+  z-index: 3;
+}
+
+.access-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+
+.access-item {
+  background: white;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  padding: 0.75rem 1.75rem;
-  border-radius: 999px;
-  border: 2px solid #e2e8f0;
-  background: transparent;
-  color: #64748b;
+  gap: 1rem;
+  box-shadow: var(--shadow-md);
+  border-bottom: 4px solid var(--gov-blue-dark);
+  text-align: center;
+}
+
+.access-item:hover {
+  transform: translateY(-5px);
+  border-bottom-color: var(--gov-yellow);
+}
+
+.access-icon {
+  font-size: 2.5rem;
+}
+
+.access-item span {
+  font-weight: 800;
+  color: var(--gov-blue-dark);
+  text-transform: uppercase;
+  font-size: 0.9rem;
+}
+
+/* News Highlight Home */
+.news-highlight-home {
+  padding: 4rem 0 2rem;
+  background: white;
+}
+
+.news-spotlight {
+  background: var(--bg-alt);
+  padding: 2.5rem;
+  border-left: 8px solid var(--gov-yellow);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s ease;
+}
+
+.news-spotlight:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateX(5px);
+}
+
+.news-tag {
+  background: var(--gov-blue-dark);
+  color: white;
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  width: fit-content;
+}
+
+.news-spotlight-content h3 {
+  font-size: 1.8rem;
+  color: var(--gov-blue-dark);
+  font-weight: 800;
+  margin-bottom: 0.75rem;
+  line-height: 1.2;
+}
+
+.news-spotlight-content p {
+  font-size: 1.1rem;
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  max-width: 800px;
+}
+
+.btn-read-more {
+  color: var(--gov-blue);
+  font-weight: 800;
   font-size: 1rem;
-  font-weight: 600;
-  text-decoration: none;
-  transition: border-color 0.15s, color 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
-.btn-secondary:hover {
-  border-color: #2563eb;
-  color: #2563eb;
+.btn-read-more:hover {
+  gap: 1rem;
 }
 
-/* ========================================
-   SEÇÕES ABOUT E BENEFITS - CENTRALIZADAS
-   ======================================== */
-.about,
-.benefits {
-  width: 100%;
-  max-width: 1000px;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 4rem 1.5rem;
+/* Highlights Section */
+.highlights {
+  padding: 5rem 0;
+  background: white;
+}
+
+.highlights-header {
+  margin-bottom: 3rem;
+  border-left: 8px solid var(--gov-green);
+  padding-left: 1.5rem;
 }
 
 .section-title {
-  font-size: 1.75rem;
-  font-weight: 700;
-  color: #0f172a;
-  text-align: center;
-  margin-bottom: 1rem;
+  color: var(--gov-blue-dark);
+  font-size: 2.2rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: -1px;
 }
 
-.section-content {
-  width: 100%;
-  max-width: 900px;
-  margin-left: auto;
-  margin-right: auto;
+.section-desc {
+  color: var(--text-muted);
+  font-size: 1.1rem;
 }
 
-.section-subtitle {
-  font-size: 1.15rem;
-  font-weight: 500;
-  color: #2563eb;
-  text-align: center;
-  max-width: 700px;
-  margin-left: auto;
-  margin-right: auto;
+.highlights-content {
+  max-width: 800px;
+}
+
+.highlight-text p {
   margin-bottom: 1.5rem;
-  line-height: 1.5;
+  font-size: 1.1rem;
+  color: #444;
 }
 
-.section-text {
+.btn-text {
+  color: var(--gov-blue);
+  font-weight: 700;
   font-size: 1rem;
-  color: #64748b;
-  text-align: center;
-  max-width: 700px;
-  margin-left: auto;
-  margin-right: auto;
 }
 
-.about-text {
-  max-width: 800px;
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
+/* Leadership Section */
+.leadership {
+  padding: 5rem 0;
+  background: var(--bg-alt);
 }
 
-.about-text p {
-  font-size: 1.05rem;
-  color: #475569;
-  line-height: 1.8;
-  margin-bottom: 1.25rem;
-}
-
-.about-text p:last-child {
-  margin-bottom: 0;
-}
-
-.about-text strong {
-  color: #0f172a;
-  font-weight: 600;
-}
-
-/* ========================================
-   FUNDADOR SECTION
-   ======================================== */
-.founder {
-  width: 100%;
-  background: linear-gradient(135deg, #1e3a5f 0%, #0f172a 100%);
-  padding: 4rem 1.5rem;
-}
-
-.founder-card {
-  max-width: 800px;
-  margin-left: auto;
-  margin-right: auto;
-  display: flex;
-  align-items: flex-start;
-  gap: 2rem;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 1.5rem;
-  padding: 2.5rem;
-  backdrop-filter: blur(10px);
-}
-
-.founder-avatar {
-  flex-shrink: 0;
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
+.leadership-card {
+  display: grid;
+  grid-template-columns: 350px 1fr;
+  background: white;
+  box-shadow: var(--shadow-md);
   overflow: hidden;
-  border: 4px solid rgba(37, 99, 235, 0.5);
-  box-shadow: 0 8px 24px rgba(37, 99, 235, 0.4);
 }
 
-.founder-avatar img {
+.leadership-img-wrapper {
+  height: 400px;
+}
+
+.leadership-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center top;
 }
 
-.founder-info {
-  flex: 1;
-}
-
-.founder-label {
-  display: inline-block;
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: #60a5fa;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  margin-bottom: 0.5rem;
-}
-
-.founder-name {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #ffffff;
-  margin-bottom: 1rem;
-}
-
-.founder-bio p {
-  font-size: 0.95rem;
-  color: #cbd5e1;
-  line-height: 1.7;
-  margin-bottom: 1rem;
-}
-
-.founder-bio p:last-child {
-  margin-bottom: 0;
-}
-
-.founder-bio strong {
-  color: #f1f5f9;
-  font-weight: 600;
-}
-
-@media (max-width: 768px) {
-  .founder {
-    padding: 3rem 1rem;
-  }
-
-  .founder-card {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    padding: 2rem 1.5rem;
-    gap: 1.5rem;
-  }
-
-  .founder-avatar {
-    width: 100px;
-    height: 100px;
-  }
-
-  .founder-name {
-    font-size: 1.25rem;
-  }
-
-  .founder-bio p {
-    font-size: 0.9rem;
-    text-align: left;
-  }
-}
-
-.benefits-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.5rem;
-  margin-top: 2rem;
-  width: 100%;
-  max-width: 960px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.benefit-card {
-  background: #ffffff;
-  border: 1px solid #e2e8f0;
-  border-radius: 1rem;
-  padding: 1.5rem;
-  text-align: center;
-  transition: box-shadow 0.2s, transform 0.2s;
-}
-
-.benefit-card:hover {
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-  transform: translateY(-2px);
-}
-
-.benefit-icon {
-  font-size: 2rem;
-  margin-bottom: 0.75rem;
-}
-
-.benefit-card h3 {
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: #0f172a;
-  margin-bottom: 0.5rem;
-}
-
-.benefit-card p {
-  font-size: 0.9rem;
-  color: #64748b;
-}
-
-/* ========================================
-   CONTATO SECTION
-   ======================================== */
-.contact {
-  width: 100%;
-  background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 100%);
-  padding: 4rem 1.5rem;
-}
-
-.contact .section-title {
-  color: #ffffff;
-}
-
-.contact-intro {
-  font-size: 1.05rem;
-  color: #94a3b8;
-  text-align: center;
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 2.5rem;
-  line-height: 1.7;
-}
-
-.contact-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.5rem;
-  max-width: 960px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.contact-card {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 1rem;
-  padding: 2rem;
-  text-align: center;
-  transition: background 0.2s, transform 0.2s;
-}
-
-.contact-card:hover {
-  background: rgba(255, 255, 255, 0.08);
-  transform: translateY(-2px);
-}
-
-.contact-icon {
-  width: 60px;
-  height: 60px;
-  margin: 0 auto 1rem;
-  background: linear-gradient(135deg, #2563eb, #0ea5e9);
-  border-radius: 50%;
+.leadership-info {
+  padding: 3rem;
   display: flex;
-  align-items: center;
+  flex-direction: column;
   justify-content: center;
-  color: #ffffff;
 }
 
-.contact-card h3 {
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: #ffffff;
+.leadership-label {
+  color: var(--gov-green);
+  font-weight: 800;
+  font-size: 0.8rem;
+  letter-spacing: 2px;
   margin-bottom: 0.5rem;
 }
 
-.contact-card p {
-  font-size: 0.9rem;
-  color: #94a3b8;
-  margin-bottom: 1rem;
-  line-height: 1.5;
+.leadership-name {
+  font-size: 2rem;
+  color: var(--gov-blue-dark);
+  font-weight: 800;
+  margin-bottom: 1.5rem;
 }
 
-.contact-link {
-  display: inline-block;
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: #60a5fa;
-  text-decoration: none;
-  transition: color 0.15s;
+.leadership-quote {
+  font-size: 1.2rem;
+  font-style: italic;
+  color: #555;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+  position: relative;
 }
 
-.contact-link:hover {
-  color: #93c5fd;
-  text-decoration: underline;
+.leadership-quote::before {
+  content: '"';
+  font-size: 4rem;
+  position: absolute;
+  top: -2rem;
+  left: -1rem;
+  opacity: 0.1;
+  color: var(--gov-blue-dark);
 }
 
-@media (max-width: 768px) {
-  .contact {
-    padding: 3rem 1rem;
+.leadership-bio {
+  border-top: 1px solid #eee;
+  padding-top: 1.5rem;
+  color: var(--text-muted);
+}
+
+/* CTA Section */
+.cta-section {
+  padding-bottom: 5rem;
+  background: var(--bg-alt);
+}
+
+.cta-box {
+  background: var(--gov-blue-dark);
+  padding: 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-box::after {
+  content: '';
+  position: absolute;
+  right: -50px;
+  top: -50px;
+  width: 200px;
+  height: 200px;
+  background: var(--gov-yellow);
+  opacity: 0.1;
+  border-radius: 50%;
+}
+
+.cta-content h2 {
+  font-size: 2rem;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+}
+
+.cta-content p {
+  opacity: 0.8;
+  font-size: 1.1rem;
+}
+
+.btn-accent {
+  background: var(--gov-yellow);
+  color: var(--gov-blue-dark);
+  padding: 1rem 2rem;
+  font-weight: 900;
+  border-radius: 4px;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .hero-title {
+    font-size: 2.2rem;
   }
 
-  .contact-intro {
-    font-size: 0.95rem;
+  .access-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 
-  .contact-grid {
+  .leadership-card {
     grid-template-columns: 1fr;
   }
 
-  .contact-card {
-    padding: 1.5rem;
+  .leadership-img-wrapper {
+    height: 300px;
+  }
+
+  .cta-box {
+    flex-direction: column;
+    text-align: center;
+    gap: 2rem;
   }
 }
 
-@media (max-width: 768px) {
-  .hero-title {
-    font-size: 1.5rem;
+@media (max-width: 640px) {
+  .hero {
+    height: auto;
+    padding: 6rem 0 8rem;
   }
 
-  .hero-subtitle {
-    font-size: 1rem;
+  .hero-title {
+    font-size: 1.8rem;
   }
 
   .hero-actions {
     flex-direction: column;
-    width: 100%;
-    max-width: 300px;
   }
 
-  .btn-primary,
-  .btn-secondary {
-    width: 100%;
-    justify-content: center;
-  }
-
-  .about,
-  .benefits {
-    padding: 2.5rem 1rem;
+  .access-grid {
+    grid-template-columns: 1fr;
   }
 
   .section-title {
-    font-size: 1.4rem;
-  }
-
-  .section-subtitle {
-    font-size: 1rem;
-  }
-
-  .about-text p {
-    font-size: 0.95rem;
-    line-height: 1.7;
-    text-align: left;
-  }
-
-  .benefits-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 480px) {
-  .hero-title {
-    font-size: 1.3rem;
-  }
-
-  .benefit-card {
-    padding: 1.25rem;
+    font-size: 1.8rem;
   }
 }

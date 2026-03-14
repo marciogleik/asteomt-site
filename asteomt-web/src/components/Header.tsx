@@ -6,7 +6,7 @@ import { FiMenu, FiX, FiUser, FiLogOut, FiHome, FiFileText, FiCalendar, FiUsers,
 import './Header.css';
 
 export function Header() {
-  const { user, isAuthenticated, logout } = useAuth();
+  const { isAuthenticated, logout } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
@@ -41,64 +41,73 @@ export function Header() {
   ];
 
   return (
-    <header className={`header ${scrolled ? 'scrolled' : ''}`}>
-      <div className="header-inner">
-        <Link to="/" className="logo-link" onClick={closeMenu}>
-          <img src={logoImg} alt="ASTEOMT" className="logo-img" />
-          <div className="logo-text">
-            <span className="site-title">ASTEOMT</span>
-            <span className="site-subtitle">Associação dos Técnicos de Imobilizações Ortopédicas de MT</span>
+    <>
+      <div className="gov-bar">
+        <div className="container gov-bar-content">
+          <div className="gov-flag">
+            <span className="gov-flag-img">🇧🇷</span>
+            <span>BRASIL</span>
           </div>
-        </Link>
-
-        <button className="mobile-menu-button" onClick={toggleMenu} aria-label="Menu">
-          {isMenuOpen ? <FiX size={24} /> : <FiMenu size={24} />}
-        </button>
-
-        <nav className={`nav ${isMenuOpen ? 'active' : ''}`}>
-          <div className="nav-links">
-            {navLinks.map((link) => (
-              <Link
-                key={link.to}
-                to={link.to}
-                className={`nav-link ${location.pathname === link.to ? 'active' : ''}`}
-                onClick={closeMenu}
-              >
-                <span className="nav-icon">{link.icon}</span>
-                {link.text}
-              </Link>
-            ))}
+          <div className="gov-links">
+            <a href="https://www.gov.br/pt-br/orgaos-do-governo" target="_blank" rel="noopener noreferrer">Órgãos do Governo</a>
+            <a href="https://www.gov.br/access-keys" target="_blank" rel="noopener noreferrer">Acessibilidade</a>
           </div>
-
-          <div className="user-actions">
-            {isAuthenticated ? (
-              <>
-                <div className="user-profile">
-                  <span className="user-avatar">
-                    <FiUser />
-                  </span>
-                  <span className="user-name">{user?.name || 'Usuário'}</span>
-                </div>
-                <Link to="/area-membro" className="btn-member" onClick={closeMenu}>
-                  Área do Membro
-                </Link>
-                <button onClick={() => { logout(); closeMenu(); }} className="btn-logout">
-                  <FiLogOut /> Sair
-                </button>
-              </>
-            ) : (
-              <>
-                <Link to="/login" className="btn-login" onClick={closeMenu}>
-                  <FiUser /> Entrar
-                </Link>
-                <Link to="/registro" className="btn-register" onClick={closeMenu}>
-                  Filiar-se
-                </Link>
-              </>
-            )}
-          </div>
-        </nav>
+        </div>
       </div>
-    </header>
+
+      <header className={`header ${scrolled ? 'scrolled' : ''}`}>
+        <div className="container header-inner">
+          <Link to="/" className="logo-link" onClick={closeMenu}>
+            <img src={logoImg} alt="ASTEOMT" className="logo-img" />
+            <div className="logo-text">
+              <span className="site-title">ASTEOMT</span>
+              <span className="site-subtitle">Associação Matogrossense dos Técnicos de Imobilizações Ortopédicas</span>
+            </div>
+          </Link>
+
+          <button className="mobile-menu-button" onClick={toggleMenu} aria-label="Menu">
+            {isMenuOpen ? <FiX size={24} /> : <FiMenu size={24} />}
+          </button>
+
+          <nav className={`nav ${isMenuOpen ? 'active' : ''}`}>
+            <div className="nav-links">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.to}
+                  to={link.to}
+                  className={`nav-link ${location.pathname === link.to ? 'active' : ''}`}
+                  onClick={closeMenu}
+                >
+                  {link.text}
+                </Link>
+              ))}
+            </div>
+
+            <div className="user-actions">
+              {isAuthenticated ? (
+                <div className="auth-group">
+                  <Link to="/area-membro" className="btn-member" onClick={closeMenu}>
+                    <FiUser /> Área do Membro
+                  </Link>
+                  <button onClick={() => { logout(); closeMenu(); }} className="btn-logout" title="Sair">
+                    <FiLogOut />
+                  </button>
+                </div>
+              ) : (
+                <div className="auth-group">
+                  <Link to="/login" className="btn-login" onClick={closeMenu}>
+                    Entrar
+                  </Link>
+                  <Link to="/registro" className="btn-register" onClick={closeMenu}>
+                    Filiar-se
+                  </Link>
+                </div>
+              )}
+            </div>
+          </nav>
+        </div>
+      </header>
+      <div className="header-spacer"></div>
+    </>
   );
 }

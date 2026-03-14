@@ -14,6 +14,7 @@ import fetch from 'node-fetch';
 
 // Configurações
 const SITE_URL = 'https://asteomt.com.br';
+const API_URL = 'https://asteomt-api.onrender.com/health'; // Supondo endpoint /health
 const CHECK_INTERVAL = 5 * 60 * 1000; // 5 minutos
 const TIMEOUT = 30000; // 30 segundos
 
@@ -45,23 +46,23 @@ function getFormattedDate() {
 async function checkWebsite() {
   const startTime = Date.now();
   const timestamp = getFormattedDate();
-  
+
   try {
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), TIMEOUT);
-    
+
     const response = await fetch(SITE_URL, {
       signal: controller.signal,
       headers: {
         'User-Agent': 'ASTEOMT-KeepAlive/1.0 (+https://asteomt.com.br)'
       }
     });
-    
+
     clearTimeout(timeoutId);
     const responseTime = Date.now() - startTime;
-    
+
     console.log(`[${timestamp}] ${colors.green}✅ Online${colors.reset} | Status: ${response.status} | Tempo: ${responseTime}ms`);
-    
+
   } catch (error) {
     const errorType = error.name === 'AbortError' ? 'Timeout' : 'Erro';
     console.error(`[${timestamp}] ${colors.red}❌ ${errorType}${colors.reset} | ${error.message}`);

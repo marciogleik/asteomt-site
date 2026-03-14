@@ -1,59 +1,111 @@
 import { useAuth } from '../contexts/AuthContext';
+import { FiUser, FiFileText, FiAward, FiSettings, FiGrid, FiLogOut, FiCreditCard } from 'react-icons/fi';
 import './MemberDashboard.css';
 
 export function MemberDashboard() {
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
+
+  const menuItems = [
+    { id: 'overview', icon: <FiGrid />, label: 'Visão Geral', active: true },
+    { id: 'profile', icon: <FiUser />, label: 'Meu Perfil' },
+    { id: 'documents', icon: <FiFileText />, label: 'Documentos' },
+    { id: 'certificates', icon: <FiAward />, label: 'Certificados' },
+    { id: 'payments', icon: <FiCreditCard />, label: 'Anuidades' },
+    { id: 'settings', icon: <FiSettings />, label: 'Configurações' },
+  ];
 
   return (
-    <div className="dashboard">
-      <div className="dashboard-header">
-        <h1>Área do Membro</h1>
-        <p>Bem-vindo(a), <strong>{user?.name}</strong>!</p>
-      </div>
-
-      <div className="dashboard-grid">
-        <div className="dashboard-card">
-          <div className="card-icon">📄</div>
-          <h3>Documentos</h3>
-          <p>Acesse documentos exclusivos para associados.</p>
-          <button className="card-btn">Ver documentos</button>
+    <div className="member-layout animate-fade-in">
+      <aside className="member-sidebar">
+        <nav className="sidebar-nav">
+          {menuItems.map((item) => (
+            <a 
+              key={item.id} 
+              href={`#${item.id}`} 
+              className={`sidebar-link ${item.active ? 'active' : ''}`}
+            >
+              <span className="sidebar-icon">{item.icon}</span>
+              {item.label}
+            </a>
+          ))}
+        </nav>
+        <div style={{ marginTop: 'auto', padding: '0 1rem' }}>
+          <button onClick={logout} className="sidebar-link" style={{ width: '100%', cursor: 'pointer', border: 'none', background: 'none' }}>
+            <span className="sidebar-icon"><FiLogOut /></span>
+            Sair da Conta
+          </button>
         </div>
+      </aside>
 
-        <div className="dashboard-card">
-          <div className="card-icon">📰</div>
-          <h3>Notícias</h3>
-          <p>Fique por dentro das novidades da categoria.</p>
-          <button className="card-btn">Ver notícias</button>
-        </div>
+      <main className="member-main">
+        <header className="dashboard-hero">
+          <h1>Bem-vindo, {user?.name.split(' ')[0]}</h1>
+          <p>Seja bem-vindo ao portal exclusivo do associado ASTEO-MT.</p>
+        </header>
 
-        <div className="dashboard-card">
-          <div className="card-icon">🎓</div>
-          <h3>Certificados</h3>
-          <p>Baixe seus certificados e comprovantes.</p>
-          <button className="card-btn">Ver certificados</button>
-        </div>
-
-        <div className="dashboard-card">
-          <div className="card-icon">👤</div>
-          <h3>Meu Perfil</h3>
-          <p>Atualize seus dados cadastrais.</p>
-          <button className="card-btn">Editar perfil</button>
-        </div>
-      </div>
-
-      <div className="membership-status">
-        <h2>Status da Anuidade</h2>
-        <div className="status-card">
-          <div className="status-info">
-            <span className="status-label">Situação:</span>
-            <span className="status-value status-active">Ativo</span>
+        <section className="stats-grid">
+          <div className="stat-card">
+            <div className="stat-icon-wrapper"><FiAward /></div>
+            <div className="stat-info">
+              <h4>Status Profissional</h4>
+              <div className="stat-value">
+                <span className="status-badge status-active">Ativo</span>
+              </div>
+            </div>
           </div>
-          <div className="status-info">
-            <span className="status-label">Válido até:</span>
-            <span className="status-value">31/12/2025</span>
+          <div className="stat-card">
+            <div className="stat-icon-wrapper"><FiFileText /></div>
+            <div className="stat-info">
+              <h4>Anuidade 2026</h4>
+              <div className="stat-value">Registrada</div>
+            </div>
+          </div>
+          <div className="stat-card">
+            <div className="stat-icon-wrapper"><FiAward /></div>
+            <div className="stat-info">
+              <h4>Certificados</h4>
+              <div className="stat-value">04 Ativos</div>
+            </div>
+          </div>
+        </section>
+
+        <div className="services-panel">
+          <div className="panel-card">
+            <div className="panel-header">
+              <h3>Meus Dados</h3>
+              <FiUser />
+            </div>
+            <div className="panel-body">
+              <div className="panel-list">
+                <div className="panel-item">
+                  <span className="item-label">Email:</span>
+                  <span className="item-value">{user?.email}</span>
+                </div>
+                <div className="panel-item">
+                  <span className="item-label">Membro desde:</span>
+                  <span className="item-value">Out/2025</span>
+                </div>
+              </div>
+              <button className="btn-panel">Editar Informações</button>
+            </div>
+          </div>
+
+          <div className="panel-card">
+            <div className="panel-header">
+              <h3>Área Técnica</h3>
+              <FiFileText />
+            </div>
+            <div className="panel-body">
+              <p style={{ fontSize: '0.9rem', color: '#666', marginBottom: '1rem' }}>
+                Acesse guias e normas atualizadas sobre imobilização ortopédica em Mato Grosso.
+              </p>
+              <button className="btn-panel">Acessar Material</button>
+            </div>
           </div>
         </div>
-      </div>
+      </main>
     </div>
   );
 }
+
+export default MemberDashboard;

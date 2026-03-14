@@ -1,0 +1,210 @@
+/* Base Styles for Institutional Subpages */
+.subpage-container {
+  min-height: 100vh;
+  background-color: var(--bg-alt);
+}
+
+.subpage-header {
+  background-color: var(--gov-blue-dark);
+  color: white;
+  padding: 5rem 0; /* Increased padding for premium feel */
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 2rem;
+}
+
+.subpage-header::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 4px;
+  background-color: var(--gov-yellow);
+}
+
+.subpage-header h1 {
+  font-size: 3rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+  letter-spacing: -1px;
+}
+
+.subpage-header p {
+  font-size: 1.25rem;
+  opacity: 0.9;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.subpage-content {
+  padding: 4rem 0;
+}
+
+.content-section {
+  background: white;
+  padding: 3rem;
+  border-radius: 8px;
+  box-shadow: var(--shadow-md);
+  margin-bottom: 3rem;
+  border-left: 6px solid var(--gov-yellow);
+}
+
+.content-section h2 {
+  color: var(--gov-blue-dark);
+  font-size: 2rem;
+  font-weight: 800;
+  margin-bottom: 1.5rem;
+}
+
+.content-section p {
+  line-height: 1.8;
+  color: #444;
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.feature-card {
+  padding: 2.5rem;
+  background: white;
+  border-radius: 8px;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid #eee;
+  text-align: center;
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-md);
+}
+
+.feature-icon {
+  font-size: 3rem;
+  margin-bottom: 1.5rem;
+  display: block;
+}
+
+.feature-card h3 {
+  color: var(--gov-blue-dark);
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+}
+
+.feature-card p {
+  color: var(--text-muted);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 6rem 2rem;
+  background: white;
+  border-radius: 12px;
+  border: 2px dashed #ddd;
+}
+
+.empty-state-icon {
+  font-size: 4rem;
+  margin-bottom: 2rem;
+}
+
+.empty-state h2 {
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 4rem;
+}
+
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1rem;
+  background: white;
+  border-radius: 8px;
+  box-shadow: var(--shadow-sm);
+}
+
+.info-icon {
+  font-size: 1.5rem;
+  color: var(--gov-blue);
+  width: 40px;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  background: white;
+  padding: 3rem;
+  border-radius: 12px;
+  box-shadow: var(--shadow-md);
+  border-top: 6px solid var(--gov-blue-dark);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-input {
+  padding: 1rem;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+  font-family: inherit;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: var(--gov-blue);
+}
+
+.btn-submit {
+  padding: 1.25rem;
+  background-color: var(--gov-blue-dark);
+  color: white;
+  border-radius: 6px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  margin-top: 1rem;
+  transition: all 0.2s;
+}
+
+.btn-submit:hover {
+  background-color: var(--gov-blue);
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  .subpage-header h1 {
+    font-size: 2.2rem;
+  }
+  
+  .content-section, .contact-form {
+    padding: 2rem;
+  }
+}

@@ -9,165 +9,138 @@ export function Home() {
 
   return (
     <div className="home">
-      {/* Hero Section - Centralizada */}
+      {/* Banner / Hero Section */}
       <section className="hero" style={{ backgroundImage: `url(${heroBackground})` }}>
         <div className="hero-overlay"></div>
-        <div className="hero-content">
-          <h1 className="hero-title">
-            Associação Matogrossense dos Técnicos de<br />
-            <span className="highlight">Imobilizações Ortopédicas</span>
-          </h1>
-          <p className="hero-subtitle">
-            Conectando profissionais, fortalecendo a categoria e promovendo o desenvolvimento técnico-científico.
-          </p>
-          <div className="hero-actions">
-            {isAuthenticated ? (
-              <Link to="/area-membro" className="btn-primary">
-                Acessar Área do Membro
-              </Link>
-            ) : (
-              <>
-                <Link to="/registro" className="btn-primary">
-                  Filiar-se
-                </Link>
-                <Link to="/login" className="btn-secondary">
-                  Já sou membro
-                </Link>
-              </>
-            )}
-          </div>
-        </div>
-      </section>
-
-      {/* Sobre Section - Centralizada */}
-      <section id="sobre" className="about">
-        <div className="section-content">
-          <h2 className="section-title">Sobre a ASTEO-MT</h2>
-          <h3 className="section-subtitle">
-            Transformando a Imobilização Ortopédica em Mato Grosso com Dedicação, União e Valorização Profissional
-          </h3>
-          <div className="about-text">
-            <p>
-              A <strong>ASTEO MT</strong> – Associação dos Técnicos em Imobilização Ortopédica do Estado de Mato Grosso – 
-              foi fundada em 2007 por <strong>Leonardo Leite Ribeiro</strong>, com o objetivo de unir e qualificar 
-              profissionais da área, garantindo reconhecimento e respeito pelo trabalho realizado.
+        <div className="container hero-container">
+          <div className="hero-content">
+            <span className="hero-tag">MATO GROSSO</span>
+            <h1 className="hero-title">
+              Associação Matogrossense dos Técnicos de <strong>Imobilizações Ortopédicas</strong>
+            </h1>
+            <p className="hero-subtitle">
+              Instituição representativa dedicada ao fortalecimento, valorização e desenvolvimento técnico-científico da categoria no estado.
             </p>
-            <p>
-              A associação atua promovendo cursos, campanhas de valorização e parcerias estratégicas, como com a 
-              <strong> Sociedade Brasileira de Ortopedia</strong>, reforçando o papel essencial dos técnicos ao lado 
-              dos médicos ortopedistas. Além disso, luta pelo reconhecimento da profissão, regulamentação da atividade 
-              e defesa dos interesses da categoria em todo o estado de Mato Grosso.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Fundador Section */}
-      <section className="founder">
-        <div className="section-content">
-          <div className="founder-card">
-            <div className="founder-avatar">
-              <img src={leonardoImg} alt="Leonardo Leite Ribeiro" />
-            </div>
-            <div className="founder-info">
-              <span className="founder-label">Fundador e Presidente da ASTEO-MT</span>
-              <h3 className="founder-name">Leonardo Leite Ribeiro</h3>
-              <div className="founder-bio">
-                <p>
-                  Leonardo Leite Ribeiro é o fundador e atual presidente da ASTEO-MT. Profissional altamente 
-                  respeitado em sua área, atua como <strong>Técnico em Imobilização Ortopédica</strong> e 
-                  dedica-se ao fortalecimento e valorização da categoria no estado de Mato Grosso.
-                </p>
-                <p>
-                  Além de sua liderança na associação, Leonardo exerce um papel relevante na administração 
-                  pública de Água Boa, onde atua como <strong>Secretário Municipal de Desenvolvimento Econômico, 
-                  Agricultura e Turismo</strong>. Sua experiência multidisciplinar e seu comprometimento com o 
-                  desenvolvimento regional fazem dele uma referência tanto no setor técnico quanto no âmbito institucional.
-                </p>
-              </div>
+            <div className="hero-actions">
+              {isAuthenticated ? (
+                <Link to="/area-membro" className="btn-primary">
+                  ÁREA DO MEMBRO
+                </Link>
+              ) : (
+                <>
+                  <Link to="/registro" className="btn-primary">
+                    FILIAR-SE AGORA
+                  </Link>
+                  <Link to="/login" className="btn-outline">
+                    Acesso ao Sistema
+                  </Link>
+                </>
+              )}
             </div>
           </div>
         </div>
       </section>
 
-      {/* Benefícios Section - Centralizada */}
-      <section className="benefits">
-        <div className="section-content">
-          <h2 className="section-title">Benefícios para Associados</h2>
-          <div className="benefits-grid">
-            <div className="benefit-card">
-              <div className="benefit-icon">📄</div>
-              <h3>Documentos Exclusivos</h3>
-              <p>Acesso a materiais técnicos, normas e documentos da categoria.</p>
-            </div>
-            <div className="benefit-card">
-              <div className="benefit-icon">📰</div>
-              <h3>Notícias e Atualizações</h3>
-              <p>Fique por dentro das novidades e eventos da área.</p>
-            </div>
-            <div className="benefit-card">
-              <div className="benefit-icon">🎓</div>
-              <h3>Certificados</h3>
-              <p>Comprovantes de associação e participação em eventos.</p>
+      {/* Quick Access / Serviços */}
+      <section className="quick-access">
+        <div className="container">
+          <div className="access-grid">
+            <Link to="/noticias" className="access-item">
+              <div className="access-icon">📰</div>
+              <span>Notícias</span>
+            </Link>
+            <Link to="/cursos" className="access-item">
+              <div className="access-icon">🎓</div>
+              <span>Cursos</span>
+            </Link>
+            <Link to="/eventos" className="access-item">
+              <div className="access-icon">📅</div>
+              <span>Eventos</span>
+            </Link>
+            <Link to="/contato" className="access-item">
+              <div className="access-icon">📞</div>
+              <span>Contato</span>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Destaque Notícia Recente */}
+      <section className="news-highlight-home">
+        <div className="container">
+          <div className="news-spotlight">
+            <div className="news-tag">NOVIDADE</div>
+            <div className="news-spotlight-content">
+              <h3>Parceria Institucional com a Universidade Católica de Cuiabá</h3>
+              <p>A ASTEO-MT inicia tratativas para fortalecer a formação dos profissionais de imobilização ortopédica em Mato Grosso.</p>
+              <Link to="/noticias" className="btn-read-more">Ler notícia completa →</Link>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Contato Section */}
-      <section id="contato" className="contact">
-        <div className="section-content">
-          <h2 className="section-title">Entre em Contato</h2>
-          <p className="contact-intro">
-            Ficou com dúvidas sobre a associação? Entre em contato conosco para saber mais sobre 
-            afiliação, cursos, benefícios para associados e a defesa dos seus direitos profissionais.
-          </p>
-          
-          <div className="contact-grid">
-            <div className="contact-card">
-              <div className="contact-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <rect width="20" height="16" x="2" y="4" rx="2"/>
-                  <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
-                </svg>
-              </div>
-              <h3>E-mail Geral</h3>
-              <p>Para dúvidas gerais sobre a ASTEO MT, afiliação e atividades da diretoria.</p>
-              <a href="mailto:asteo.mt@hotmail.com" className="contact-link">
-                asteo.mt@hotmail.com
-              </a>
-            </div>
+      {/* Destaques / Sobre */}
+      <section className="highlights">
+        <div className="container">
+          <div className="highlights-header">
+            <h2 className="section-title">A Instituição</h2>
+            <p className="section-desc">Conheça a história e os objetivos da ASTEO-MT na defesa dos profissionais.</p>
+          </div>
 
-            <div className="contact-card">
-              <div className="contact-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
-                </svg>
-              </div>
-              <h3>Telefone</h3>
-              <p>Atendimento via WhatsApp ou ligação.</p>
-              <a href="https://wa.me/5566999849974" target="_blank" rel="noopener noreferrer" className="contact-link">
-                (66) 9 9984-9974
-              </a>
+          <div className="highlights-content">
+            <div className="highlight-text">
+              <p>
+                A <strong>ASTEO-MT</strong> (Associação dos Técnicos em Imobilização Ortopédica do Estado de Mato Grosso)
+                é uma entidade sem fins lucrativos fundada com o propósito de nortear, representar e defender os interesses
+                dos profissionais que atuam na área de imobilizações.
+              </p>
+              <p>
+                Desde sua fundação em 2007, temos trabalhado incansavelmente pela regulamentação da profissão,
+                promoção de cursos de atualização e estabelecimento de parcerias técnicas que garantam a excelência
+                no atendimento à população mato-grossense.
+              </p>
+              <Link to="/sobre" className="btn-text">Ver mais sobre a história →</Link>
             </div>
+          </div>
+        </div>
+      </section>
 
-            <div className="contact-card">
-              <div className="contact-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/>
-                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
-                  <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>
-                </svg>
-              </div>
-              <h3>Instagram</h3>
-              <p>Siga-nos para novidades, eventos e conteúdos exclusivos.</p>
-              <a href="https://www.instagram.com/asteo.mtt/" target="_blank" rel="noopener noreferrer" className="contact-link">
-                @asteo.mtt
-              </a>
+      {/* Liderança / Presidente */}
+      <section className="leadership">
+        <div className="container">
+          <div className="leadership-card">
+            <div className="leadership-img-wrapper">
+              <img src={leonardoImg} alt="Leonardo Leite Ribeiro" className="leadership-img" />
             </div>
+            <div className="leadership-info">
+              <span className="leadership-label">PRESIDÊNCIA</span>
+              <h3 className="leadership-name">Leonardo Leite Ribeiro</h3>
+              <p className="leadership-quote">
+                "Nosso compromisso é com a dignidade do profissional e com a qualidade técnica que oferecemos à sociedade.
+                Unidos somos mais fortes para conquistar o reconhecimento que nossa categoria merece."
+              </p>
+              <div className="leadership-bio">
+                <p>Técnico em Imobilização Ortopédica e Presidente da ASTEO-MT desde sua fundação.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Informativos CTA */}
+      <section className="cta-section">
+        <div className="container">
+          <div className="cta-box">
+            <div className="cta-content">
+              <h2>Mantenha sua documentação em dia</h2>
+              <p>Associados têm acesso a certificados online, material técnico exclusivo e suporte jurídico.</p>
+            </div>
+            <Link to="/registro" className="btn-accent">QUERO SER ASSOCIADO</Link>
           </div>
         </div>
       </section>
     </div>
   );
 }
+
+export default Home;

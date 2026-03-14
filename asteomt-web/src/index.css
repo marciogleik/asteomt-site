@@ -1,1 +1,106 @@
-/* Reset e estilos base - limpo para ASTEO-MT */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Public+Sans:wght@300;400;500;600;700&display=swap');
+
+:root {
+  /* Government/Institutional Palette */
+  --gov-blue-dark: #004b82;
+  --gov-blue: #0064af;
+  --gov-blue-light: #e6f0f7;
+  --gov-green: #00824b;
+  --gov-yellow: #ffcc00;
+  
+  /* System Colors */
+  --primary: var(--gov-blue-dark);
+  --primary-hover: var(--gov-blue);
+  --secondary: var(--gov-green);
+  --accent: var(--gov-yellow);
+  
+  --text-main: #1a1a1a;
+  --text-muted: #666666;
+  --bg-main: #ffffff;
+  --bg-alt: #f4f6f8;
+  --border-color: #d1d5db;
+  
+  /* Layout */
+  --header-height: 80px;
+  --header-top-bar-height: 32px;
+  --container-max-width: 1200px;
+  
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.6s ease-out forwards;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Public Sans', 'Inter', -apple-system, sans-serif;
+  background-color: var(--bg-alt);
+  color: var(--text-main);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+.container {
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: var(--transition);
+}
+
+ul {
+  list-style: none;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
+}
+
+/* Institutional Header Bar */
+.gov-bar {
+  background-color: #f0f0f0;
+  height: var(--header-top-bar-height);
+  font-size: 11px;
+  font-weight: 500;
+  color: #333;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #ddd;
+}
+
+.gov-bar-content {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.gov-flag {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.gov-flag-img {
+  width: 16px;
+  height: 11px;
+}
