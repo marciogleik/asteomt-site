@@ -1,14 +1,16 @@
 import { Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
+import { NOTICIAS } from '../data/noticias';
 import leonardoImg from '../assets/images/leonardo-ribeiro.jpg';
 import heroBackground from '../assets/images/noticias/audiencia-2.jpg';
 import './Home.css';
 
 export function Home() {
   const { isAuthenticated } = useAuth();
-
+  const recentNews = NOTICIAS.slice(0, 3);
+  
   return (
-    <div className="home">
+    <div className="home animate-fade-in">
       {/* Banner / Hero Section */}
       <section className="hero" style={{ backgroundImage: `url(${heroBackground})` }}>
         <div className="hero-overlay"></div>
@@ -66,15 +68,35 @@ export function Home() {
       </section>
 
       {/* Destaque Notícia Recente */}
-      <section className="news-highlight-home">
+      <section className="news-section-home">
         <div className="container">
-          <div className="news-spotlight">
-            <div className="news-tag">NOVIDADE</div>
-            <div className="news-spotlight-content">
-              <h3>Parceria Institucional com a Universidade Católica de Cuiabá</h3>
-              <p>A ASTEO-MT inicia tratativas para fortalecer a formação dos profissionais de imobilização ortopédica em Mato Grosso.</p>
-              <Link to="/noticias" className="btn-read-more">Ler notícia completa →</Link>
+          <div className="news-section-header">
+            <div>
+              <h2 className="section-title">Últimas Atualizações</h2>
+              <p className="section-desc">Acompanhe as ações e conquistas da ASTEO-MT</p>
             </div>
+            <Link to="/noticias" className="btn-outline" style={{ borderColor: 'var(--gov-blue-dark)', color: 'var(--gov-blue-dark)' }}>
+              Ver todas as notícias
+            </Link>
+          </div>
+          
+          <div className="home-news-grid">
+            {recentNews.map((noticia) => (
+              <Link to="/noticias" key={noticia.id} className="home-news-card">
+                {noticia.galeria && noticia.galeria.length > 0 && (
+                  <div className="home-news-img-wrapper">
+                    <img src={noticia.galeria[0]} alt={noticia.titulo} className="home-news-img" />
+                    <span className="home-news-badge">{noticia.badge}</span>
+                  </div>
+                )}
+                <div className="home-news-content">
+                  <span className="home-news-date">{noticia.data}</span>
+                  <h3 className="home-news-title">{noticia.titulo}</h3>
+                  <p className="home-news-intro">{noticia.intro}</p>
+                  <span className="home-news-read-more">Ler mais →</span>
+                </div>
+              </Link>
+            ))}
           </div>
         </div>
       </section>

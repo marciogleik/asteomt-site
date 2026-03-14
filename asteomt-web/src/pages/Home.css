@@ -139,66 +139,131 @@
   font-size: 0.9rem;
 }
 
-/* News Highlight Home */
-.news-highlight-home {
-  padding: 4rem 0 2rem;
-  background: white;
+/* News Section Home */
+.news-section-home {
+  padding: 5rem 0;
+  background: var(--bg-alt);
 }
 
-.news-spotlight {
-  background: var(--bg-alt);
-  padding: 2.5rem;
+.news-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 3rem;
   border-left: 8px solid var(--gov-yellow);
+  padding-left: 1.5rem;
+}
+
+.home-news-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.home-news-card {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  box-shadow: var(--shadow-sm);
-  transition: all 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid #eee;
+  text-decoration: none;
+  color: inherit;
+  height: 100%;
 }
 
-.news-spotlight:hover {
+.home-news-card:hover {
+  transform: translateY(-5px);
   box-shadow: var(--shadow-md);
-  transform: translateX(5px);
 }
 
-.news-tag {
+.home-news-img-wrapper {
+  height: 200px;
+  position: relative;
+  overflow: hidden;
+}
+
+.home-news-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.home-news-card:hover .home-news-img {
+  transform: scale(1.05);
+}
+
+.home-news-badge {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
   background: var(--gov-blue-dark);
   color: white;
-  display: inline-block;
   padding: 0.25rem 0.75rem;
   font-size: 0.7rem;
   font-weight: 800;
   letter-spacing: 1px;
-  width: fit-content;
+  border-radius: 4px;
 }
 
-.news-spotlight-content h3 {
-  font-size: 1.8rem;
+.home-news-content {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.home-news-date {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.home-news-title {
+  font-size: 1.25rem;
+  font-weight: 700;
   color: var(--gov-blue-dark);
-  font-weight: 800;
-  margin-bottom: 0.75rem;
-  line-height: 1.2;
+  margin-bottom: 1rem;
+  line-height: 1.4;
+  /* Line clamping for titles to keep cards aligned */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
-.news-spotlight-content p {
-  font-size: 1.1rem;
+.home-news-intro {
+  font-size: 0.95rem;
   color: #555;
-  line-height: 1.6;
+  line-height: 1.5;
   margin-bottom: 1.5rem;
-  max-width: 800px;
+  flex-grow: 1;
+  /* Line clamping for intro */
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
-.btn-read-more {
+.home-news-read-more {
   color: var(--gov-blue);
   font-weight: 800;
-  font-size: 1rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  display: inline-block;
+  margin-top: auto; /* Pushes to bottom */
 }
 
-.btn-read-more:hover {
-  gap: 1rem;
+@media (max-width: 640px) {
+  .news-section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
 }
 
 /* Highlights Section */
