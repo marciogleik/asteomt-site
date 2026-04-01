@@ -1,10 +1,8 @@
-# ASTEO-MT - Portal da Associação
-
-![ASTEO-MT Logo](asteomt-web/src/assets/images/logo-asteomt.png)
+# ASTEO-MT - Associação Matogrossense dos Técnicos de Imobilizações Ortopédicas
 
 Este repositório contém o código-fonte do portal oficial da **ASTEO-MT** (Associação dos Técnicos em Imobilização Ortopédica do Estado de Mato Grosso). A plataforma foi desenvolvida para fortalecer, valorizar e promover o desenvolvimento técnico-científico da categoria no estado.
 
-## 🚀 Sobre o Projeto
+## Sobre o Projeto
 
 O portal serve como o ponto central de interação entre a associação e seus membros, oferecendo:
 - **Área do Membro:** Painel exclusivo para associados com acesso a documentos e suporte.
@@ -13,7 +11,7 @@ O portal serve como o ponto central de interação entre a associação e seus m
 - **Registro Profissional:** Fluxo simplificado para novos filiados.
 - **Transparência:** Informações institucionais, estatutos e termos de uso.
 
-## 🛠️ Tecnologias Utilizadas
+## Tecnologias Utilizadas
 
 O projeto utiliza uma arquitetura moderna dividida em Frontend e Backend:
 
@@ -53,35 +51,6 @@ O projeto utiliza uma arquitetura moderna dividida em Frontend e Backend:
 - NPM ou Yarn
 - PostgreSQL (ou acesso a uma instância remota via URL)
 
-### 1. Clonando o Repositório
-```bash
-git clone https://github.com/marciogleik/asteomt-site.git
-cd asteomt-site
-```
-
-### 2. Configurando o Backend (API)
-```bash
-cd asteomt-api
-npm install
-# Crie um arquivo .env baseado nas variáveis necessárias (DATABASE_URL, JWT_SECRET, etc.)
-npm run start:dev
-```
-
-### 3. Configurando o Frontend (Web)
-```bash
-cd asteomt-web
-npm install
-# Configure as variáveis de ambiente em .env.local (VITE_API_URL)
-npm run dev
-```
-
----
-
-## 📦 Implantação (Deploy)
-
-Para instruções detalhadas sobre como realizar o deploy na Hostinger (Frontend) e Railway (API), consulte o arquivo:
-👉 **[Instruções de Deploy (DEPLOY.md)](./DEPLOY.md)**
-
 ---
 
 ## 📄 Licença
@@ -89,4 +58,4 @@ Para instruções detalhadas sobre como realizar o deploy na Hostinger (Frontend
 Este projeto é de uso exclusivo da ASTEO-MT. Consulte os termos de uso na plataforma para mais detalhes.
 
 ---
-Desenvolvido com ❤️ para a comunidade técnica de Mato Grosso.
+Desenvolvido por [Marcio Gleik](https://www.linkedin.com/in/marciogleikdev/) para a comunidade técnica do estado de Mato Grosso.
