@@ -6,8 +6,34 @@
   background: linear-gradient(135deg, var(--gov-blue-dark) 0%, var(--gov-blue) 100%);
   color: white;
   padding: 6rem 0;
-  text-align: center;
   margin-bottom: 4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-content {
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 1.5rem;
+}
+
+.benefit-badge {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 0.5rem 1.2rem;
+  border-radius: 30px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .beneficios-hero h1 {
@@ -20,8 +46,8 @@
 .beneficios-hero p {
   font-size: 1.25rem;
   opacity: 0.9;
-  max-width: 600px;
-  margin: 0 auto;
+  max-width: 700px;
+  line-height: 1.6;
 }
 
 .beneficios-grid {
@@ -161,7 +187,11 @@
 
 @media (max-width: 768px) {
   .beneficios-hero h1 {
-    font-size: 2.5rem;
+    font-size: 2.25rem;
+  }
+
+  .beneficios-hero p {
+    font-size: 1.1rem;
   }
   
   .expansion-banner {

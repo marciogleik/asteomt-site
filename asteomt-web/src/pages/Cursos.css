@@ -1,0 +1,110 @@
+.courses-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.partnership-card {
+  background: white;
+  border-radius: 16px;
+  padding: 3.5rem;
+  box-shadow: var(--shadow-md);
+  border: 1px solid #eee;
+  transition: all 0.3s ease;
+  text-align: left;
+}
+
+.partnership-card:hover {
+  box-shadow: 0 20px 40px rgba(0, 75, 130, 0.08);
+  border-color: var(--gov-blue-light);
+}
+
+.partnership-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 2.5rem;
+}
+
+.partnership-logo {
+  max-height: 90px;
+  max-width: 200px;
+  object-fit: contain;
+}
+
+.partnership-content h3 {
+  color: var(--gov-blue-dark);
+  font-size: 2rem;
+  font-weight: 800;
+  margin-bottom: 1.25rem;
+}
+
+.partnership-content p {
+  color: #555;
+  font-size: 1.15rem;
+  line-height: 1.7;
+  margin-bottom: 2.5rem;
+  max-width: 800px;
+}
+
+.course-topics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.25rem;
+  margin-bottom: 3rem;
+  background: #f9fcff;
+  padding: 2rem;
+  border-radius: 12px;
+}
+
+.topic-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: #444;
+  font-weight: 600;
+  font-size: 1.05rem;
+}
+
+.topic-icon {
+  color: var(--gov-green);
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.btn-visit {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 1.1rem 2.2rem;
+  background: var(--gov-blue-dark);
+  color: white;
+  border-radius: 8px;
+  font-weight: 700;
+  transition: all 0.2s;
+}
+
+.btn-visit:hover {
+  background: var(--gov-blue);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 75, 130, 0.2);
+}
+
+@media (max-width: 768px) {
+  .partnership-card {
+    padding: 2rem;
+  }
+  
+  .partnership-header {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .partnership-content h3 {
+    font-size: 1.75rem;
+  }
+  
+  .course-topics {
+    grid-template-columns: 1fr;
+    padding: 1.5rem;
+  }
+}
