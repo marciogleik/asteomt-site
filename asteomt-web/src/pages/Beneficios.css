@@ -1,0 +1,175 @@
+.beneficios-page {
+  padding-bottom: 5rem;
+}
+
+.beneficios-hero {
+  background: linear-gradient(135deg, var(--gov-blue-dark) 0%, var(--gov-blue) 100%);
+  color: white;
+  padding: 6rem 0;
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.beneficios-hero h1 {
+  font-size: 3.5rem;
+  font-weight: 800;
+  margin-bottom: 1.5rem;
+  letter-spacing: -1px;
+}
+
+.beneficios-hero p {
+  font-size: 1.25rem;
+  opacity: 0.9;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.beneficios-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+  gap: 3rem;
+  margin-bottom: 6rem;
+}
+
+/* Reusing and enhancing partner cards from Home */
+.benefit-card {
+  background: white;
+  border-radius: 16px;
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  border: 1px solid #f0f0f0;
+  transition: all 0.3s ease;
+}
+
+.benefit-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0, 75, 130, 0.1);
+  border-color: var(--gov-blue-light);
+}
+
+.benefit-logo-box {
+  height: 120px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2.5rem;
+}
+
+.benefit-logo-box img {
+  max-width: 220px;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.benefit-content h3 {
+  color: var(--gov-blue-dark);
+  font-size: 1.75rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+}
+
+.benefit-content p {
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  font-size: 1.05rem;
+}
+
+.benefit-tag {
+  display: inline-block;
+  padding: 0.4rem 1rem;
+  background: #eef7ff;
+  color: var(--gov-blue);
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  text-transform: uppercase;
+}
+
+.benefit-btn {
+  width: 100%;
+  padding: 1rem;
+  background: var(--gov-blue-dark);
+  color: white;
+  border-radius: 8px;
+  font-weight: 700;
+  transition: background 0.2s;
+}
+
+.benefit-btn:hover {
+  background: var(--gov-blue);
+}
+
+/* Expansion Section */
+.expansion-banner {
+  background: #f8fbff;
+  border-radius: 24px;
+  padding: 4rem;
+  text-align: center;
+  border: 2px dashed #d0e4ff;
+}
+
+.expansion-icon {
+  font-size: 3rem;
+  color: var(--gov-blue);
+  margin-bottom: 1.5rem;
+}
+
+.expansion-banner h2 {
+  color: var(--gov-blue-dark);
+  font-size: 2.25rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+}
+
+.expansion-banner p {
+  color: #666;
+  font-size: 1.15rem;
+  max-width: 700px;
+  margin: 0 auto 2.5rem;
+}
+
+.expansion-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.expansion-item {
+  background: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 30px;
+  box-shadow: var(--shadow-sm);
+  font-weight: 700;
+  color: #444;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.expansion-item::before {
+  content: '✓';
+  color: var(--gov-green);
+}
+
+@media (max-width: 768px) {
+  .beneficios-hero h1 {
+    font-size: 2.5rem;
+  }
+  
+  .expansion-banner {
+    padding: 2.5rem 1.5rem;
+  }
+
+  .expansion-list {
+    flex-direction: column;
+    align-items: center;
+  }
+}

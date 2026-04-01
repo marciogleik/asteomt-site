@@ -12,6 +12,7 @@ import { Cursos } from './pages/Cursos';
 import { Contato } from './pages/Contato';
 import { Privacidade } from './pages/Privacidade';
 import { Termos } from './pages/Termos';
+import { Beneficios } from './pages/Beneficios';
 import { MemberDashboard } from './pages/MemberDashboard';
 import './App.css';
 
@@ -43,6 +44,7 @@ function App() {
               <Route path="/contato" element={<Contato />} />
               <Route path="/privacidade" element={<Privacidade />} />
               <Route path="/termos" element={<Termos />} />
+              <Route path="/beneficios" element={<Beneficios />} />
               <Route
                 path="/area-membro"
                 element={

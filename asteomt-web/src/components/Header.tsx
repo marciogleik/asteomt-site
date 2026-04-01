@@ -34,7 +34,7 @@ export function Header() {
   const navLinks = [
     { to: "/", text: "Início", icon: <FiHome /> },
     { to: "/sobre", text: "Sobre Nós", icon: <FiUsers /> },
-    { to: "/#beneficios", text: "Benefícios", icon: <FiShield /> },
+    { to: "/beneficios", text: "Benefícios", icon: <FiShield /> },
     { to: "/noticias", text: "Notícias", icon: <FiFileText /> },
     { to: "/eventos", text: "Eventos", icon: <FiCalendar /> },
     { to: "/cursos", text: "Cursos", icon: <FiAward /> },
