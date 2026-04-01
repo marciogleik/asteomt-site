@@ -42,26 +42,40 @@ function getFormattedDate() {
   });
 }
 
-// Função principal para verificar o site
+// Função principal para verificar o site e a API
 async function checkWebsite() {
   const startTime = Date.now();
   const timestamp = getFormattedDate();
 
   try {
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), TIMEOUT);
+    const controller1 = new AbortController();
+    const timeoutId1 = setTimeout(() => controller1.abort(), TIMEOUT);
 
-    const response = await fetch(SITE_URL, {
-      signal: controller.signal,
+    // Ping Backend (Render API)
+    const apiResponse = await fetch(API_URL, {
+      signal: controller1.signal,
+      headers: {
+        'User-Agent': 'ASTEOMT-KeepAlive/1.0 (+https://asteomt-api.onrender.com)'
+      }
+    });
+    
+    clearTimeout(timeoutId1);
+
+    const controller2 = new AbortController();
+    const timeoutId2 = setTimeout(() => controller2.abort(), TIMEOUT);
+
+    // Ping Frontend (Site)
+    const siteResponse = await fetch(SITE_URL, {
+      signal: controller2.signal,
       headers: {
         'User-Agent': 'ASTEOMT-KeepAlive/1.0 (+https://asteomt.com.br)'
       }
     });
 
-    clearTimeout(timeoutId);
+    clearTimeout(timeoutId2);
     const responseTime = Date.now() - startTime;
 
-    console.log(`[${timestamp}] ${colors.green}✅ Online${colors.reset} | Status: ${response.status} | Tempo: ${responseTime}ms`);
+    console.log(`[${timestamp}] ${colors.green}✅ Online${colors.reset} | API: ${apiResponse.status} | Site: ${siteResponse.status} | Tempo: ${responseTime}ms`);
 
   } catch (error) {
     const errorType = error.name === 'AbortError' ? 'Timeout' : 'Erro';
@@ -72,6 +86,7 @@ async function checkWebsite() {
 // Mensagem inicial
 console.log(`${colors.bright}${colors.blue}=== Monitoramento ASTEOMT ===${colors.reset}`);
 console.log(`Site: ${SITE_URL}`);
+console.log(`API (Backend Render): ${API_URL}`);
 console.log(`Verificação a cada ${CHECK_INTERVAL / 60000} minutos`);
 console.log('Pressione Ctrl+C para encerrar\n');
 
