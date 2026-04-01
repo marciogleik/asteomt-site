@@ -2,7 +2,9 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { NOTICIAS } from '../data/noticias';
 import leonardoImg from '../assets/images/leonardo-ribeiro.jpg';
-import heroBackground from '../assets/images/noticias/audiencia-2.jpg';
+import heroBackground from '../assets/images/noticias/home-hero.png';
+import dumaLogo from '../assets/images/parceiros/duma-logo.png';
+import unifaccLogo from '../assets/images/noticias/parceria-unifacc.png';
 import './Home.css';
 
 export function Home() {
@@ -122,6 +124,46 @@ export function Home() {
                 no atendimento à população mato-grossense.
               </p>
               <Link to="/sobre" className="btn-text">Ver mais sobre a história →</Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Partners & Benefits Section */}
+      <section className="partners-section" id="beneficios">
+        <div className="container">
+          <div className="partners-header">
+            <h2 className="section-title">Parcerias e Benefícios</h2>
+            <p className="section-desc">Vantagens exclusivas para os nossos associados e seus familiares.</p>
+          </div>
+
+          <div className="partners-grid">
+            {/* Duma Card */}
+            <div className="partner-card">
+              <div className="partner-logo-wrapper">
+                <img src={dumaLogo} alt="Duma Psicologia e Saúde" className="partner-logo" />
+              </div>
+              <div className="partner-info">
+                <h3 className="partner-title">Duma Psicologia</h3>
+                <p className="partner-desc">
+                  Terapia online especializada para adultos, casais e grupos com condições exclusivas para associados e familiares.
+                </p>
+                <Link to="/noticias" className="btn-partner">Saiba mais</Link>
+              </div>
+            </div>
+
+            {/* UNIFACC Card */}
+            <div className="partner-card">
+              <div className="partner-logo-wrapper">
+                <img src={unifaccLogo} alt="UNIFACC" className="partner-logo" />
+              </div>
+              <div className="partner-info">
+                <h3 className="partner-title">UNIFACC Cuiabá</h3>
+                <p className="partner-desc">
+                  Parceria institucional para fortalecimento profissional, cursos de extensão e desenvolvimento acadêmico.
+                </p>
+                <Link to="/noticias" className="btn-partner">Saiba mais</Link>
+              </div>
             </div>
           </div>
         </div>

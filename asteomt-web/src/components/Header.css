@@ -9,6 +9,15 @@
   border-bottom: 1px solid #ddd;
 }
 
+.container-header {
+  width: 100%;
+  max-width: 1300px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
 .gov-bar-content {
   display: flex;
   justify-content: space-between;
@@ -48,7 +57,7 @@
 }
 
 .logo-img {
-  height: 80px; /* Aumentado de 60px para melhor visibilidade da nova logo circular */
+  height: 70px; /* Reduzido para um cabeçalho mais slim e elegante */
   width: auto;
   object-fit: contain;
 }
@@ -68,10 +77,11 @@
 }
 
 .site-subtitle {
-  font-size: 0.75rem;
+  font-size: 0.65rem;
   font-weight: 600;
   color: var(--text-muted);
-  max-width: 300px;
+  max-width: 260px;
+  line-height: 1.2;
 }
 
 .nav {
@@ -79,6 +89,7 @@
   align-items: center;
   gap: 2rem;
   height: 100%;
+  margin-left: 3rem; /* Aumentado para dar mais distanciamento horizontal da logo */
 }
 
 .nav-links {
@@ -89,17 +100,37 @@
 }
 
 .nav-link {
-  font-size: 0.85rem;
-  font-weight: 700;
-  text-transform: uppercase;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: none; /* Removido uppercase para visual mais moderno e agradável */
   color: var(--gov-blue-dark);
   padding: 0 0.8rem;
   border-bottom: 4px solid transparent;
   display: flex;
   align-items: center;
+  gap: 10px; /* Espaçamento ideal para um visual limpo e moderno */
   white-space: nowrap;
   height: 100%;
   transition: all 0.2s ease;
+}
+
+.nav-icon {
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+  opacity: 0.7;
+  transition: all 0.2s ease;
+}
+
+.nav-link:hover .nav-icon,
+.nav-link.active .nav-icon {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+.nav-text {
+  font-size: 0.85rem;
+  letter-spacing: 0.5px;
 }
 
 .nav-link:hover,
@@ -117,7 +148,20 @@
 .btn-login {
   color: var(--gov-blue-dark);
   font-weight: 700;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
+  border: 2px solid var(--gov-blue-dark);
+  padding: 0.5rem 1.1rem;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.2s ease;
+  text-transform: none;
+}
+
+.btn-login:hover {
+  background-color: var(--gov-blue-light);
+  transform: translateY(-1px);
 }
 
 .btn-register {
@@ -126,8 +170,9 @@
   padding: 0.6rem 1.2rem;
   border-radius: 4px;
   font-weight: 700;
-  font-size: 0.9rem;
-  text-transform: uppercase;
+  font-size: 0.85rem;
+  border: 2px solid transparent;
+  text-transform: none;
   box-shadow: var(--shadow-sm);
 }
 

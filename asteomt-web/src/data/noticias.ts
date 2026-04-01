@@ -1,9 +1,34 @@
 import audiencia1 from '../assets/images/noticias/audiencia-1.jpg';
-import audiencia2 from '../assets/images/noticias/audiencia-2.jpg';
+import audiencia2 from '../assets/images/noticias/home-hero.png';
 import audiencia3 from '../assets/images/noticias/audiencia-3.jpg';
 import parceriaImg from '../assets/images/noticias/parceria-unifacc.png';
+import parceriaDuma from '../assets/images/noticias/parceria-duma.png';
 
 export const NOTICIAS = [
+  {
+    id: 'parceria-duma',
+    badge: 'Nova Parceria',
+    titulo: 'ASTEO-MT e Duma Psicologia e Saúde firmam parceria para cuidado emocional dos associados',
+    data: '20 de março de 2026',
+    local: 'Atendimento Online',
+    intro: 'A ASTEO-MT e a Duma Psicologia e Saúde estabelecem convênio para oferecer suporte psicológico qualificado com condições exclusivas para associados e seus familiares.',
+    texto: [
+      'Esta parceria é firmada entre a Duma Psicologia e Saúde e a ASTEO-MT, sendo destinada aos associados ativos da instituição, com extensão do benefício aos seus respectivos cônjuges e filhos. O objetivo é proporcionar acesso a um serviço psicológico qualificado, com condições diferenciadas, mantendo o padrão de excelência, confidencialidade e cuidado característicos da Duma.',
+      'A clínica oferece terapia online para adultos (individual, casal e grupo), com acolhimento sensível, clareza e exclusividade. A Duma estabelece um ecossistema de parcerias com o objetivo de ampliar o acesso a um cuidado psicológico qualificado, mantendo seu posicionamento de excelência e profundidade clínica.',
+      'Benefícios exclusivos: Associados ativos, cônjuges e filhos. Atendimentos de acompanhamento psicológico exclusivamente on-line.'
+    ],
+    galeria: [parceriaDuma],
+    linkExterno: {
+      label: 'Visitar Site da Duma Saúde',
+      url: 'https://dumasaude.com'
+    },
+    contato: {
+      whatsapp: '+55 62 99903-4804',
+      email: 'info@dumasaude.com',
+      instagram: 'https://www.instagram.com/dumasaud'
+    },
+    destaque: true
+  },
   {
     id: 'parceria-unifacc',
     badge: 'Parceria Institucional',
