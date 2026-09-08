@@ -35,6 +35,7 @@ export class AuthController {
 
     return {
       message: 'Login realizado com sucesso',
+      accessToken: result.accessToken,
       user: result.user,
     };
   }

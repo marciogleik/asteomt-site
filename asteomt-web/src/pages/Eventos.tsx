@@ -1,8 +1,14 @@
+import { SEO } from '../components/SEO';
 import './SubPage.css';
 
 export function Eventos() {
   return (
     <div className="subpage-container">
+      <SEO
+        title="Eventos e Congressos da Categoria"
+        description="Acompanhe o calendário de congressos, workshops, assembleias e encontros técnicos da ASTEO-MT para os profissionais de imobilização ortopédica."
+        path="/eventos"
+      />
       <header className="subpage-header">
         <div className="container">
           <h1>Próximos Eventos</h1>

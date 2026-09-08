@@ -1,7 +1,14 @@
 
+import { SEO } from '../components/SEO';
+
 export function Privacidade() {
     return (
         <div className="page-container">
+            <SEO
+                title="Política de Privacidade"
+                description="Política de privacidade da Associação Matogrossense dos Técnicos de Imobilizações Ortopédicas (ASTEO-MT)."
+                path="/privacidade"
+            />
             <main className="container" style={{ padding: '4rem 2rem', maxWidth: '800px', margin: '0 auto', lineHeight: '1.8' }}>
                 <h1 style={{ color: 'var(--gov-blue-dark)', marginBottom: '2rem' }}>Política de Privacidade</h1>
                 <p>A ASTEO-MT valoriza a privacidade de seus associados. Esta política descreve como coletamos e protegemos seus dados pessoais.</p>

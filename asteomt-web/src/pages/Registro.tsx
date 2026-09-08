@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { criarPreferenciaMP } from '../lib/supabase';
+import { SEO } from '../components/SEO';
 import './Registro.css';
 
 interface FormData {
@@ -14,7 +16,6 @@ interface FormData {
 }
 
 export function Registro() {
-  const [etapa, setEtapa] = useState<'formulario' | 'boleto'>('formulario');
   const [formData, setFormData] = useState<FormData>({
     nomeCompleto: '',
     cpf: '',
@@ -26,6 +27,8 @@ export function Registro() {
     aceitaTermos: false,
   });
   const [errors, setErrors] = useState<Record<string, string | undefined>>({});
+  const [isLoading, setIsLoading] = useState(false);
+  const [apiError, setApiError] = useState<string | null>(null);
 
   const formatCPF = (value: string) => {
     const numbers = value.replace(/\D/g, '');
@@ -44,8 +47,9 @@ export function Registro() {
       .replace(/(-\d{4})\d+?$/, '$1');
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value, type, checked } = e.target;
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const { name, value, type } = e.target;
+    const checked = (e.target as HTMLInputElement).checked;
 
     let formattedValue = value;
     if (name === 'cpf') {
@@ -62,120 +66,63 @@ export function Registro() {
     if (errors[name]) {
       setErrors(prev => ({ ...prev, [name]: undefined }));
     }
+
+    if (apiError) setApiError(null);
   };
 
   const validateForm = (): boolean => {
     const newErrors: Record<string, string> = {};
 
-    if (!formData.nomeCompleto.trim()) {
-      newErrors.nomeCompleto = 'Nome completo é obrigatório';
-    }
-
-    if (!formData.cpf.trim() || formData.cpf.length < 14) {
-      newErrors.cpf = 'CPF inválido';
-    }
-
-    if (!formData.telefone.trim() || formData.telefone.length < 14) {
-      newErrors.telefone = 'Telefone inválido';
-    }
-
-    if (!formData.email.trim() || !formData.email.includes('@')) {
-      newErrors.email = 'E-mail inválido';
-    }
-
-    if (!formData.cidade.trim()) {
-      newErrors.cidade = 'Cidade é obrigatória';
-    }
-
-    if (!formData.localTrabalho.trim()) {
-      newErrors.localTrabalho = 'Local de trabalho é obrigatório';
-    }
-
-    if (!formData.tempoExperiencia.trim()) {
-      newErrors.tempoExperiencia = 'Tempo de experiência é obrigatório';
-    }
-
-    if (!formData.aceitaTermos) {
-      newErrors.aceitaTermos = 'Você deve aceitar os termos para continuar';
-    }
+    if (!formData.nomeCompleto.trim()) newErrors.nomeCompleto = 'Nome completo é obrigatório';
+    if (!formData.cpf.trim() || formData.cpf.length < 14) newErrors.cpf = 'CPF inválido';
+    if (!formData.telefone.trim() || formData.telefone.length < 14) newErrors.telefone = 'Telefone inválido';
+    if (!formData.email.trim() || !formData.email.includes('@')) newErrors.email = 'E-mail inválido';
+    if (!formData.cidade.trim()) newErrors.cidade = 'Cidade é obrigatória';
+    if (!formData.localTrabalho.trim()) newErrors.localTrabalho = 'Local de trabalho é obrigatório';
+    if (!formData.tempoExperiencia.trim()) newErrors.tempoExperiencia = 'Tempo de experiência é obrigatório';
+    if (!formData.aceitaTermos) newErrors.aceitaTermos = 'Você deve aceitar os termos para continuar';
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (validateForm()) {
-      setEtapa('boleto');
+    if (!validateForm()) return;
+
+    setIsLoading(true);
+    setApiError(null);
+
+    try {
+      const result = await criarPreferenciaMP({
+        nomeCompleto: formData.nomeCompleto,
+        cpf: formData.cpf,
+        telefone: formData.telefone,
+        email: formData.email,
+        cidade: formData.cidade,
+        localTrabalho: formData.localTrabalho,
+        tempoExperiencia: formData.tempoExperiencia,
+      });
+
+      // Em ambiente de teste, usa sandbox_init_point. Em produção, usa init_point.
+      const isSandbox = import.meta.env.VITE_MP_SANDBOX === 'true';
+      const checkoutUrl = isSandbox ? result.sandbox_init_point : result.init_point;
+
+      window.location.href = checkoutUrl;
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : 'Erro inesperado. Tente novamente.';
+      setApiError(message);
+      setIsLoading(false);
     }
   };
 
-  if (etapa === 'boleto') {
-    const vencimento = new Date();
-    vencimento.setDate(vencimento.getDate() + 7);
-
-    return (
-      <div className="registro-page">
-        <div className="registro-container">
-          <div className="boleto-box">
-            <div className="boleto-icon">📄</div>
-            <h1>Solicitação de Filiação Enviada!</h1>
-
-            <div className="boleto-info">
-              <p className="boleto-nome"><strong>{formData.nomeCompleto}</strong></p>
-              <p className="boleto-email">{formData.email}</p>
-            </div>
-
-            <div className="boleto-detalhes">
-              <div className="boleto-item">
-                <span className="boleto-label">Anuidade ASTEOMT</span>
-                <span className="boleto-valor">R$ 186,00</span>
-              </div>
-              <div className="boleto-item">
-                <span className="boleto-label">Vencimento</span>
-                <span className="boleto-data">{vencimento.toLocaleDateString('pt-BR')}</span>
-              </div>
-            </div>
-
-            <div className="boleto-codigo">
-              <p className="codigo-label">LINHA DIGITÁVEL PARA PAGAMENTO</p>
-              <p className="codigo-numero">23793.38128 60000.000003 00000.000400 1 94560000018600</p>
-              <button
-                className="btn-copiar"
-                onClick={() => {
-                  navigator.clipboard.writeText('23793.38128 60000.000003 00000.000400 1 94560000018600');
-                  alert('Código copiado para a área de transferência!');
-                }}
-              >
-                📋 COPIAR LINHA DIGITÁVEL
-              </button>
-            </div>
-
-            <a href="#" className="btn-submit" style={{ display: 'inline-block', textDecoration: 'none' }} onClick={(e) => { e.preventDefault(); alert('Em breve integração bancária real.'); }}>
-              DOWNLOAD DO BOLETO (PDF)
-            </a>
-
-            <div className="registro-info-box" style={{ marginTop: '2rem', textAlign: 'left' }}>
-              <div className="info-icon">⚖️</div>
-              <div className="info-texto">
-                <strong>Próximos Passos:</strong>
-                <ol>
-                  <li>Efetue o pagamento do boleto até o vencimento.</li>
-                  <li>Aguarde até 72h para a compensação e registro no sistema.</li>
-                  <li>Você receberá suas credenciais de acesso por e-mail.</li>
-                </ol>
-              </div>
-            </div>
-
-            <Link to="/" className="back-link" style={{ marginTop: '2rem' }}>Voltar para a Página Inicial</Link>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className="registro-page">
+      <SEO
+        title="Filiar-se à ASTEO-MT | Cadastro de Associados"
+        description="Associe-se à Associação Matogrossense dos Técnicos de Imobilizações Ortopédicas. Garanta sua carteira profissional, convênios e suporte jurídico."
+        path="/registro"
+      />
       <div className="registro-container">
         <header className="registro-header">
           <Link to="/" className="back-link">
@@ -194,11 +141,18 @@ export function Registro() {
             <strong>Processo de Filiação:</strong>
             <ol>
               <li>Preenchimento de dados institucionais</li>
-              <li>Geração da anuidade (R$ 186,00)</li>
-              <li>Ativação de benefícios após pagamento</li>
+              <li>Pagamento da anuidade (R$ 186,00) via Mercado Pago</li>
+              <li>Ativação automática e envio de credenciais por e-mail</li>
             </ol>
           </div>
         </div>
+
+        {apiError && (
+          <div className="erro-api-box">
+            <span>⚠️</span>
+            <span>{apiError}</span>
+          </div>
+        )}
 
         <form onSubmit={handleSubmit} className="registro-form">
           <div className="form-group">
@@ -209,8 +163,9 @@ export function Registro() {
               value={formData.nomeCompleto}
               onChange={handleChange}
               placeholder="Digite seu nome completo"
-              required
+              disabled={isLoading}
             />
+            {errors.nomeCompleto && <span className="error-msg">{errors.nomeCompleto}</span>}
           </div>
 
           <div className="form-row">
@@ -223,8 +178,9 @@ export function Registro() {
                 onChange={handleChange}
                 placeholder="000.000.000-00"
                 maxLength={14}
-                required
+                disabled={isLoading}
               />
+              {errors.cpf && <span className="error-msg">{errors.cpf}</span>}
             </div>
             <div className="form-group">
               <label>Telefone / WhatsApp <span className="required">*</span></label>
@@ -235,21 +191,50 @@ export function Registro() {
                 onChange={handleChange}
                 placeholder="(66) 00000-0000"
                 maxLength={15}
-                required
+                disabled={isLoading}
               />
+              {errors.telefone && <span className="error-msg">{errors.telefone}</span>}
             </div>
           </div>
 
           <div className="form-group">
-            <label>E-mail Institucional <span className="required">*</span></label>
+            <label>E-mail <span className="required">*</span></label>
             <input
               type="email"
               name="email"
               value={formData.email}
               onChange={handleChange}
               placeholder="seu@email.com"
-              required
+              disabled={isLoading}
             />
+            {errors.email && <span className="error-msg">{errors.email}</span>}
+          </div>
+
+          <div className="form-row">
+            <div className="form-group">
+              <label>Cidade <span className="required">*</span></label>
+              <input
+                type="text"
+                name="cidade"
+                value={formData.cidade}
+                onChange={handleChange}
+                placeholder="Ex: Cuiabá"
+                disabled={isLoading}
+              />
+              {errors.cidade && <span className="error-msg">{errors.cidade}</span>}
+            </div>
+            <div className="form-group">
+              <label>Tempo de Experiência <span className="required">*</span></label>
+              <input
+                type="text"
+                name="tempoExperiencia"
+                value={formData.tempoExperiencia}
+                onChange={handleChange}
+                placeholder="Ex: 3 anos"
+                disabled={isLoading}
+              />
+              {errors.tempoExperiencia && <span className="error-msg">{errors.tempoExperiencia}</span>}
+            </div>
           </div>
 
           <div className="form-group">
@@ -260,8 +245,9 @@ export function Registro() {
               value={formData.localTrabalho}
               onChange={handleChange}
               placeholder="Ex: Hospital Municipal de Cuiabá"
-              required
+              disabled={isLoading}
             />
+            {errors.localTrabalho && <span className="error-msg">{errors.localTrabalho}</span>}
           </div>
 
           <div className="termos-group">
@@ -271,10 +257,11 @@ export function Registro() {
                 name="aceitaTermos"
                 checked={formData.aceitaTermos}
                 onChange={handleChange}
-                required
+                disabled={isLoading}
               />
               <span>Declaro que li e concordo com o Estatuto da ASTEO-MT e autorizo o processamento dos meus dados para fins de filiação.</span>
             </label>
+            {errors.aceitaTermos && <span className="error-msg">{errors.aceitaTermos}</span>}
           </div>
 
           <div className="valor-anuidade">
@@ -282,7 +269,21 @@ export function Registro() {
             <span className="valor-preco">R$ 186,00</span>
           </div>
 
-          <button type="submit" className="btn-submit">FINALIZAR SOLICITAÇÃO</button>
+          <button type="submit" className="btn-submit" disabled={isLoading}>
+            {isLoading ? (
+              <span className="btn-loading">
+                <span className="spinner"></span>
+                Processando...
+              </span>
+            ) : (
+              '🔒 PAGAR COM MERCADO PAGO'
+            )}
+          </button>
+
+          <p className="mp-aviso">
+            Você será redirecionado ao Mercado Pago para concluir o pagamento com segurança.<br />
+            Após a confirmação, suas credenciais serão enviadas ao seu e-mail.
+          </p>
         </form>
       </div>
     </div>

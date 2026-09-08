@@ -6,6 +6,25 @@ import parceriaDuma from '../assets/images/noticias/parceria-duma.png';
 
 export const NOTICIAS = [
   {
+    id: 'parceria-faculdade-catolica',
+    badge: 'Nova Parceria',
+    titulo: 'ASTEO-MT e Faculdade Católica de Mato Grosso firmam parceria para formação de Técnicos em Imobilizações Ortopédicas em todo o Estado',
+    data: '19 de maio de 2026',
+    local: 'Mato Grosso',
+    intro: 'A Associação dos Técnicos em Imobilizações Ortopédicas do Estado de Mato Grosso (ASTEO-MT) firmou uma importante parceria com a Faculdade Católica de Mato Grosso, instituição reconhecida pelo Ministério da Educação (MEC), para a oferta do Curso Técnico em Imobilizações Ortopédicas.',
+    texto: [
+      'A iniciativa tem como objetivo levar formação técnica qualificada a todos os municípios mato-grossenses, garantindo aos alunos uma formação segura, reconhecida e preparada para atender às exigências do mercado de trabalho.',
+      'A parceria representa um grande avanço para a valorização da categoria e para o fortalecimento da saúde em Mato Grosso, assegurando que os profissionais sejam capacitados por uma instituição oficialmente reconhecida, com formação estruturada e respaldo acadêmico.',
+      'A qualificação profissional é fundamental para garantir excelência no atendimento aos pacientes que necessitam de cuidados ortopédicos, promovendo mais segurança, responsabilidade técnica e eficiência no exercício da profissão.',
+      'Ao realizar o curso por meio de uma instituição reconhecida pelo MEC, o aluno conquista certificação válida, credibilidade profissional e melhor preparação para atuar com competência e responsabilidade.',
+      'A ASTEO-MT reafirma seu compromisso com o fortalecimento da categoria e convida todos os municípios, profissionais da saúde e interessados na área a participarem desta nova etapa de valorização e qualificação profissional.',
+      'Invista em uma formação reconhecida.\nInvista no seu futuro profissional.\nVenha fazer parte dessa transformação.',
+      'ASTEO-MT – Valorizando e qualificando os Técnicos em Imobilizações Ortopédicas de Mato Grosso.'
+    ],
+    galeria: [parceriaImg],
+    destaque: true
+  },
+  {
     id: 'parceria-duma',
     badge: 'Nova Parceria',
     titulo: 'ASTEO-MT e Duma Psicologia e Saúde firmam parceria para cuidado emocional dos associados',

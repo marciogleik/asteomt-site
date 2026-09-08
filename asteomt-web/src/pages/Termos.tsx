@@ -1,7 +1,14 @@
 
+import { SEO } from '../components/SEO';
+
 export function Termos() {
     return (
         <div className="page-container">
+            <SEO
+                title="Termos de Uso"
+                description="Termos de Uso e condições gerais de utilização do portal institucional da ASTEO-MT."
+                path="/termos"
+            />
             <main className="container" style={{ padding: '4rem 2rem', maxWidth: '800px', margin: '0 auto', lineHeight: '1.8' }}>
                 <h1 style={{ color: 'var(--gov-blue-dark)', marginBottom: '2rem' }}>Termos de Uso</h1>
                 <p>Ao utilizar este portal, você concorda com os termos abaixo estabelecidos pela ASTEO-MT.</p>

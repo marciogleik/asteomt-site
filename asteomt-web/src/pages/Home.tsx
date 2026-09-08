@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { NOTICIAS } from '../data/noticias';
+import { SEO } from '../components/SEO';
 import leonardoImg from '../assets/images/leonardo-ribeiro.jpg';
 import heroBackground from '../assets/images/noticias/home-hero.png';
 import dumaLogo from '../assets/images/parceiros/duma-logo.png';
@@ -13,6 +14,11 @@ export function Home() {
   
   return (
     <div className="home animate-fade-in">
+      <SEO
+        title="Associação Matogrossense dos Técnicos de Imobilizações Ortopédicas"
+        description="ASTEO-MT: Instituição representativa dedicada ao fortalecimento, valorização e desenvolvimento técnico-científico dos profissionais de imobilização ortopédica em Mato Grosso."
+        path="/"
+      />
       {/* Banner / Hero Section */}
       <section className="hero" style={{ backgroundImage: `url(${heroBackground})` }}>
         <div className="hero-overlay"></div>

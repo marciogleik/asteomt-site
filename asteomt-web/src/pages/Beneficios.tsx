@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FiPlusCircle } from 'react-icons/fi';
+import { SEO } from '../components/SEO';
 import dumaLogo from '../assets/images/parceiros/duma-logo.png';
 import unifaccLogo from '../assets/images/noticias/parceria-unifacc.png';
 import './Beneficios.css';
@@ -13,6 +14,11 @@ export function Beneficios() {
 
   return (
     <div className="beneficios-page">
+      <SEO
+        title="Benefícios e Convênios Exclusivos"
+        description="Confira as vantagens de ser um associado ASTEO-MT: convênios de saúde mental com Duma Psicologia, descontos em educação na UNIFACC Cuiabá e muito mais."
+        path="/beneficios"
+      />
       {/* Hero Section */}
       <section className="beneficios-hero">
         <div className="container">

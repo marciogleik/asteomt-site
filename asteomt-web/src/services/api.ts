@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || 'https://asteomt-api.onrender.com',
+  baseURL: import.meta.env.VITE_API_URL || 'https://asteomt-site.onrender.com',
   withCredentials: true,
   headers: {
     'Content-Type': 'application/json',
@@ -10,7 +10,7 @@ const api = axios.create({
 
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem('token');
-  if (token) {
+  if (token && token !== 'undefined') {
     config.headers.Authorization = `Bearer ${token}`;
   }
   return config;
@@ -19,12 +19,7 @@ api.interceptors.request.use((config) => {
 api.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (error.response?.status === 401) {
-      localStorage.removeItem('token');
-      if (!window.location.pathname.includes('/login')) {
-        window.location.href = '/login';
-      }
-    }
+    // Retorna a rejeição para que a tela trate a mensagem de erro sem forçar reload bruto
     return Promise.reject(error);
   }
 );

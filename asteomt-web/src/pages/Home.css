@@ -5,7 +5,7 @@
 /* Hero Section */
 .hero {
   position: relative;
-  height: 500px;
+  height: 520px;
   background-size: cover;
   background-position: center;
   display: flex;
@@ -19,8 +19,14 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(90deg, rgba(0, 75, 130, 0.9) 0%, rgba(0, 75, 130, 0.4) 100%);
+  background: linear-gradient(90deg, rgba(0, 45, 82, 0.95) 0%, rgba(0, 75, 130, 0.85) 50%, rgba(0, 75, 130, 0.35) 100%);
   z-index: 1;
+}
+
+@supports (background: linear-gradient(in oklab, red, blue)) {
+  .hero-overlay {
+    background: linear-gradient(90deg in oklab, rgba(0, 45, 82, 0.95) 0%, rgba(0, 75, 130, 0.85) 50%, rgba(0, 75, 130, 0.35) 100%);
+  }
 }
 
 .hero-container {
@@ -29,26 +35,30 @@
 }
 
 .hero-content {
-  max-width: 700px;
+  max-width: 720px;
 }
 
 .hero-tag {
   display: inline-block;
   background: var(--gov-yellow);
   color: var(--gov-blue-dark);
-  padding: 0.25rem 0.75rem;
+  padding: 0.3rem 0.85rem;
   font-weight: 800;
   font-size: 0.75rem;
+  border-radius: 4px;
   margin-bottom: 1rem;
   letter-spacing: 1px;
+  box-shadow: var(--shadow-sm);
 }
 
 .hero-title {
-  font-size: 3rem;
+  font-size: 3.1rem;
   font-weight: 800;
-  line-height: 1.1;
+  line-height: 1.12;
   margin-bottom: 1.5rem;
-  letter-spacing: -2px;
+  letter-spacing: -1.5px;
+  text-shadow: 0 3px 12px rgba(0, 0, 0, 0.4);
+  text-wrap: balance;
 }
 
 .hero-title strong {
@@ -56,46 +66,64 @@
 }
 
 .hero-subtitle {
-  font-size: 1.1rem;
-  opacity: 0.9;
+  font-size: 1.15rem;
+  opacity: 0.95;
   margin-bottom: 2rem;
   line-height: 1.6;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
 }
 
 .hero-actions {
   display: flex;
-  gap: 1rem;
+  gap: 1.25rem;
 }
 
 .btn-primary {
   background-color: var(--gov-green);
   color: white;
-  padding: 1rem 2rem;
-  border-radius: 4px;
+  padding: 0.9rem 2rem;
+  min-height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
   font-weight: 800;
   font-size: 0.95rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 14px rgba(0, 130, 75, 0.4);
   text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.25s ease;
 }
 
 .btn-primary:hover {
   background-color: #009657;
   transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 130, 75, 0.5);
 }
 
 .btn-outline {
-  border: 2px solid white;
+  border: 2px solid rgba(255, 255, 255, 0.9);
   color: white;
-  padding: 1rem 2rem;
-  border-radius: 4px;
+  padding: 0.9rem 2rem;
+  min-height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
   font-weight: 800;
   font-size: 0.95rem;
   text-transform: uppercase;
+  letter-spacing: 0.5px;
+  backdrop-filter: blur(4px);
+  transition: all 0.25s ease;
 }
 
 .btn-outline:hover {
   background-color: white;
   color: var(--gov-blue-dark);
+  border-color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
 }
 
 /* Quick Access */
@@ -112,24 +140,36 @@
 }
 
 .access-item {
-  background: white;
-  padding: 2rem;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 2rem 1.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 1rem;
   box-shadow: var(--shadow-md);
+  border-radius: 12px;
   border-bottom: 4px solid var(--gov-blue-dark);
+  border-top: 1px solid rgba(255, 255, 255, 0.6);
   text-align: center;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .access-item:hover {
-  transform: translateY(-5px);
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-lg);
   border-bottom-color: var(--gov-yellow);
+  background: #ffffff;
 }
 
 .access-icon {
   font-size: 2.5rem;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.access-item:hover .access-icon {
+  transform: scale(1.18) rotate(4deg);
 }
 
 .access-item span {
@@ -137,6 +177,7 @@
   color: var(--gov-blue-dark);
   text-transform: uppercase;
   font-size: 0.9rem;
+  letter-spacing: 0.5px;
 }
 
 /* News Section Home */

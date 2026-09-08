@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /area-membro
+
+Sitemap: https://asteomt.com.br/sitemap.xml

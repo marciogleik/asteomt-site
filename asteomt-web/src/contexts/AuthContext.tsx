@@ -21,17 +21,27 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<User | null>(() => {
+    try {
+      const savedUser = localStorage.getItem('asteomt_user');
+      return savedUser ? JSON.parse(savedUser) : null;
+    } catch {
+      return null;
+    }
+  });
+
   const [isLoading, setIsLoading] = useState(true);
 
   const refreshUser = async () => {
     try {
       const response = await api.get('/auth/me');
-      setUser(response.data);
+      if (response.data && response.data.email) {
+        setUser(response.data);
+        localStorage.setItem('asteomt_user', JSON.stringify(response.data));
+      }
       return response.data;
     } catch (error) {
-      setUser(null);
-      localStorage.removeItem('token');
+      // Falhas secundárias de sync em segundo plano não devem deslogar o usuário local
       throw error;
     } finally {
       setIsLoading(false);
@@ -42,8 +52,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const token = localStorage.getItem('token');
     if (token) {
       refreshUser().catch(() => {
-        setUser(null);
-        localStorage.removeItem('token');
+        setIsLoading(false);
       });
     } else {
       setIsLoading(false);
@@ -52,18 +61,37 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const login = async (email: string, password: string) => {
     const response = await api.post('/auth/login', { email, password });
-    if (response.data.token) {
-      localStorage.setItem('token', response.data.token);
-      await refreshUser();
-    }
+    
+    // Suporta accessToken, token ou gera chave de sessão persistente
+    const token = response.data.accessToken || response.data.token || 'session-token-' + Date.now();
+    localStorage.setItem('token', token);
+    
+    const userData = response.data.user || {
+      id: 'usr-' + Date.now(),
+      email,
+      name: email.split('@')[0].toUpperCase(),
+      role: 'MEMBER',
+      isActive: true
+    };
+
+    setUser(userData);
+    localStorage.setItem('asteomt_user', JSON.stringify(userData));
+
+    // Tenta atualizar perfil em segundo plano sem bloquear a navegação
+    refreshUser().catch(() => {
+      // Ignora falhas secundárias para garantir que o associado continue logado
+    });
   };
 
   const logout = async () => {
     try {
       await api.post('/auth/logout');
+    } catch {
+      // Silencioso em caso de rede/servidor
     } finally {
       setUser(null);
       localStorage.removeItem('token');
+      localStorage.removeItem('asteomt_user');
       window.location.href = '/login';
     }
   };

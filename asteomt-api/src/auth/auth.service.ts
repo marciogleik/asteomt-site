@@ -16,6 +16,10 @@ export class AuthService {
       throw new UnauthorizedException('Credenciais inválidas');
     }
 
+    if (!user.isActive) {
+      throw new UnauthorizedException('Sua filiação está pendente de confirmação de pagamento. Verifique o status da sua anuidade.');
+    }
+
     const isPasswordValid = await bcrypt.compare(password, user.passwordHash);
     if (!isPasswordValid) {
       throw new UnauthorizedException('Credenciais inválidas');

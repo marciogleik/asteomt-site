@@ -1,4 +1,5 @@
 import { FiBookOpen, FiCheck, FiPlusCircle } from 'react-icons/fi';
+import { SEO } from '../components/SEO';
 import unifaccLogo from '../assets/images/noticias/parceria-unifacc.png';
 import './SubPage.css';
 import './Cursos.css';
@@ -6,6 +7,11 @@ import './Cursos.css';
 export function Cursos() {
   return (
     <div className="subpage-container">
+      <SEO
+        title="Cursos e Qualificação Profissional"
+        description="Oportunidades de formação contínua, graduação, pós-graduação e especialização técnica para os associados ASTEO-MT através de parcerias com faculdades de referência."
+        path="/cursos"
+      />
       <header className="subpage-header">
         <div className="container">
           <h1>Formação e Carreira</h1>

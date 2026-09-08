@@ -1,9 +1,15 @@
 import { FiMail, FiPhone, FiMapPin } from 'react-icons/fi';
+import { SEO } from '../components/SEO';
 import './SubPage.css';
 
 export function Contato() {
   return (
     <div className="subpage-container animate-fade-in">
+      <SEO
+        title="Fale Conosco e Atendimento"
+        description="Entre em contato com a ASTEO-MT. Canais oficiais de atendimento por e-mail, telefone e WhatsApp para associados e dúvidas de filiação."
+        path="/contato"
+      />
       <header className="subpage-header">
         <div className="container">
           <h1>Fale Conosco</h1>

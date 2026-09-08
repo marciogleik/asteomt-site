@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Public+Sans:wght@300;400;500;600;700&display=swap');
 
 :root {
-  /* Government/Institutional Palette */
+  /* Institutional Palette */
   --gov-blue-dark: #004b82;
   --gov-blue: #0064af;
   --gov-blue-light: #e6f0f7;
@@ -19,24 +19,36 @@
   --bg-main: #ffffff;
   --bg-alt: #f4f6f8;
   --border-color: #d1d5db;
+
+  /* Glassmorphism Tokens */
+  --glass-bg: rgba(255, 255, 255, 0.85);
+  --glass-bg-dark: rgba(0, 75, 130, 0.92);
+  --glass-border: rgba(255, 255, 255, 0.25);
+  --glass-blur: blur(12px);
+
+  /* Modern Gradient Color Spaces */
+  --in-oklab: in oklab;
+  --in-oklch: in oklch;
+
+  /* Shadows */
+  --shadow-sm: 0 2px 5px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 10px 25px -5px rgba(0, 75, 130, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+  --shadow-lg: 0 20px 35px -10px rgba(0, 75, 130, 0.15), 0 10px 15px -5px rgba(0, 0, 0, 0.05);
+  --transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
   
   /* Layout */
   --header-height: 80px;
   --header-top-bar-height: 32px;
   --container-max-width: 1200px;
-  
-  --shadow-sm: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  --transition: all 0.3s cubic-bezier(.25,.8,.25,1);
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
+  from { opacity: 0; transform: translateY(12px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
 .animate-fade-in {
-  animation: fadeIn 0.6s ease-out forwards;
+  animation: fadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 * {
@@ -49,8 +61,14 @@ body {
   font-family: 'Public Sans', 'Inter', -apple-system, sans-serif;
   background-color: var(--bg-alt);
   color: var(--text-main);
-  line-height: 1.5;
+  line-height: 1.55;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Modern Typography Wrapping */
+h1, h2, h3, h4 {
+  text-wrap: balance;
 }
 
 .container {
@@ -63,6 +81,13 @@ a {
   text-decoration: none;
   color: inherit;
   transition: var(--transition);
+}
+
+/* Accessible Focus Ring */
+:focus-visible {
+  outline: 3px solid var(--gov-yellow);
+  outline-offset: 3px;
+  border-radius: 4px;
 }
 
 ul {

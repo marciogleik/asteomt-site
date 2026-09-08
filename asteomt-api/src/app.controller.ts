@@ -1,4 +1,4 @@
-import { Controller, Get, HttpStatus, Res } from '@nestjs/common';
+import { Controller, Get, Post, HttpStatus, Res } from '@nestjs/common';
 import type { Response } from 'express';
 import { AppService } from './app.service';
 
@@ -26,4 +26,15 @@ export class AppController {
   ping() {
     return { status: 'pong', timestamp: new Date().toISOString() };
   }
+
+  @Get('health/keep-alive-db')
+  async keepAliveDbGet() {
+    return this.appService.executarCicloKeepAlive();
+  }
+
+  @Post('health/keep-alive-db')
+  async keepAliveDbPost() {
+    return this.appService.executarCicloKeepAlive();
+  }
 }
+

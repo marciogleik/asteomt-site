@@ -1,0 +1,165 @@
+/* Páginas de retorno de pagamento */
+
+.retorno-page {
+  background-color: var(--bg-alt);
+  min-height: 100vh;
+  padding: 4rem 1.5rem;
+  display: flex;
+  align-items: center;
+}
+
+.retorno-container {
+  max-width: 640px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.retorno-card {
+  background: white;
+  border-radius: 8px;
+  padding: 3rem;
+  box-shadow: var(--shadow-md);
+  text-align: center;
+  border-top: 6px solid var(--gov-green);
+}
+
+.retorno-card.pending {
+  border-top-color: #f59e0b;
+}
+
+.retorno-card.failure {
+  border-top-color: #c00;
+}
+
+.retorno-icon {
+  font-size: 4rem;
+  margin-bottom: 1.5rem;
+}
+
+.retorno-titulo {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--gov-blue-dark);
+  margin-bottom: 0.75rem;
+}
+
+.retorno-subtitulo {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  margin-bottom: 2rem;
+}
+
+.retorno-info-box {
+  background: var(--gov-blue-light);
+  border-left: 4px solid var(--gov-blue-dark);
+  padding: 1.5rem;
+  border-radius: 4px;
+  text-align: left;
+  margin-bottom: 2rem;
+}
+
+.retorno-info-box.failure-box {
+  background: #fff5f5;
+  border-left-color: #c00;
+}
+
+.retorno-info-box p {
+  margin-bottom: 0.5rem;
+  color: #444;
+  line-height: 1.6;
+}
+
+.retorno-info-box ul,
+.retorno-info-box ol {
+  padding-left: 1.25rem;
+  margin-top: 0.5rem;
+}
+
+.retorno-info-box li {
+  margin-bottom: 0.4rem;
+  color: #555;
+}
+
+.retorno-proximos-passos {
+  background: #f8f9fa;
+  border-radius: 6px;
+  padding: 1.5rem;
+  text-align: left;
+  margin-bottom: 2rem;
+}
+
+.retorno-proximos-passos h3 {
+  color: var(--gov-blue-dark);
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.retorno-proximos-passos ol {
+  padding-left: 1.25rem;
+}
+
+.retorno-proximos-passos li {
+  margin-bottom: 0.5rem;
+  color: #444;
+  line-height: 1.5;
+}
+
+.retorno-acoes {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.btn-retorno-primary {
+  background-color: var(--gov-green);
+  color: white;
+  padding: 1rem 1.5rem;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 1rem;
+  text-align: center;
+  transition: all 0.2s ease;
+}
+
+.btn-retorno-primary.failure-btn {
+  background-color: var(--gov-blue-dark);
+}
+
+.btn-retorno-primary:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.btn-retorno-secondary {
+  color: var(--gov-blue-dark);
+  font-weight: 600;
+  text-align: center;
+  padding: 0.75rem;
+  border: 2px solid var(--gov-blue-dark);
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.btn-retorno-secondary:hover {
+  background-color: var(--gov-blue-light);
+}
+
+.retorno-rodape {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  margin-top: 1.5rem;
+}
+
+@media (max-width: 640px) {
+  .retorno-card {
+    padding: 2rem 1.5rem;
+  }
+
+  .retorno-titulo {
+    font-size: 1.5rem;
+  }
+}

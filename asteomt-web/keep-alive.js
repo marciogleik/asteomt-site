@@ -14,9 +14,12 @@ import fetch from 'node-fetch';
 
 // Configurações
 const SITE_URL = 'https://asteomt.com.br';
-const API_URL = 'https://asteomt-api.onrender.com/health'; // Supondo endpoint /health
+const API_URL = 'https://asteomt-site.onrender.com/health';
+const DB_KEEPALIVE_URL = 'https://asteomt-site.onrender.com/health/keep-alive-db';
 const CHECK_INTERVAL = 5 * 60 * 1000; // 5 minutos
+const DB_CHECK_INTERVAL = 24 * 60 * 60 * 1000; // 1 dia (24 horas)
 const TIMEOUT = 30000; // 30 segundos
+let lastDbCheck = 0;
 
 // Cores para o console
 const colors = {
@@ -75,7 +78,28 @@ async function checkWebsite() {
     clearTimeout(timeoutId2);
     const responseTime = Date.now() - startTime;
 
-    console.log(`[${timestamp}] ${colors.green}✅ Online${colors.reset} | API: ${apiResponse.status} | Site: ${siteResponse.status} | Tempo: ${responseTime}ms`);
+    // Ping Banco de Dados (Envia 1 dado e retira 1 dado a cada 1 dia)
+    let dbStatus = '';
+    const now = Date.now();
+    if (now - lastDbCheck >= DB_CHECK_INTERVAL || lastDbCheck === 0) {
+      try {
+        const dbController = new AbortController();
+        const dbTimeout = setTimeout(() => dbController.abort(), TIMEOUT);
+        const dbRes = await fetch(DB_KEEPALIVE_URL, {
+          signal: dbController.signal,
+          headers: { 'User-Agent': 'ASTEOMT-KeepAlive-DB/1.0' }
+        });
+        clearTimeout(dbTimeout);
+        if (dbRes.ok) {
+          lastDbCheck = now;
+          dbStatus = ` | ${colors.blue}💾 Banco: Ping 24h OK (Dado enviado e retirado)${colors.reset}`;
+        }
+      } catch (dbErr) {
+        dbStatus = ` | ${colors.yellow}💾 Banco: ${dbErr.message}${colors.reset}`;
+      }
+    }
+
+    console.log(`[${timestamp}] ${colors.green}✅ Online${colors.reset} | API: ${apiResponse.status} | Site: ${siteResponse.status}${dbStatus} | Tempo: ${responseTime}ms`);
 
   } catch (error) {
     const errorType = error.name === 'AbortError' ? 'Timeout' : 'Erro';

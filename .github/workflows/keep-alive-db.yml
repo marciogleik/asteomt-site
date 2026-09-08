@@ -1,0 +1,17 @@
+name: Banco de Dados Keep-Alive (24h)
+
+on:
+  schedule:
+    # Executa todos os dias às 12:00 UTC (09:00 no horário de Cuiabá / MT)
+    - cron: '0 12 * * *'
+  workflow_dispatch: # Permite disparar manualmente pela aba Actions do GitHub
+
+jobs:
+  keep-alive:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Enviar e retirar 1 dado do banco de dados (Keep-Alive)
+        run: |
+          echo "Disparando ciclo keep-alive para o banco de dados..."
+          RESPONSE=$(curl -s -X GET "https://asteomt-site.onrender.com/health/keep-alive-db")
+          echo "Resposta da API: $RESPONSE"

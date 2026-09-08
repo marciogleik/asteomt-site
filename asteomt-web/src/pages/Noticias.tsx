@@ -1,10 +1,16 @@
 import { Link } from 'react-router-dom';
 import { NOTICIAS } from '../data/noticias';
+import { SEO } from '../components/SEO';
 import './Noticias.css';
 
 export function Noticias() {
   return (
     <div className="noticias-page">
+      <SEO
+        title="Portal de Notícias e Atualizações"
+        description="Fique por dentro das últimas notícias, assembleias, audiências públicas e conquistas da ASTEO-MT na defesa dos Técnicos de Imobilizações Ortopédicas."
+        path="/noticias"
+      />
       <header className="noticias-header">
         <div className="noticias-header-content">
           <Link to="/" className="back-link">
@@ -38,7 +44,7 @@ export function Noticias() {
               <div className="noticia-galeria">
                 <div className={`galeria-grid ${noticia.galeria.length === 1 ? 'single-img' : ''}`}>
                   {noticia.galeria.map((img, idx) => (
-                    <img key={idx} src={img} alt={`Imagem ${idx + 1} da notícia`} />
+                    <img key={idx} src={img} alt={`${noticia.titulo} - Imagem ${idx + 1}`} />
                   ))}
                 </div>
               </div>

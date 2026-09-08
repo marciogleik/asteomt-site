@@ -12,6 +12,10 @@ wp-content/wflogs/
 wp-config.php
 wp-config-local.php
 *.log
+.env
+.env*.local
+*.env
+
 
 # Sistema / IDE
 .DS_Store
