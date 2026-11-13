@@ -93,3 +93,25 @@ export async function solicitarRecuperacaoSenha(email: string) {
     throw new Error('Nenhuma conta ativa encontrada com este e-mail. Se você já pagou sua anuidade, aguarde a liberação ou entre em contato com nosso suporte.');
   }
 }
+
+/**
+ * Grava a nova senha usando o token do link enviado por e-mail (Edge Function recuperar-senha)
+ */
+export async function redefinirSenha(token: string, novaSenha: string) {
+  const res = await fetch(`${supabaseUrl}/functions/v1/recuperar-senha`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      apikey: supabaseAnonKey,
+    },
+    body: JSON.stringify({ token, novaSenha }),
+  });
+
+  const data = await res.json().catch(() => null);
+
+  if (!res.ok) {
+    throw new Error(data?.error || 'Erro ao alterar a senha. Tente novamente.');
+  }
+
+  return data as { success: boolean; message: string };
+}

@@ -20,6 +20,7 @@ const Beneficios = lazy(() => import('./pages/Beneficios').then(m => ({ default:
 const MemberDashboard = lazy(() => import('./pages/MemberDashboard').then(m => ({ default: m.MemberDashboard })));
 const PagamentoSucesso = lazy(() => import('./pages/PagamentoSucesso').then(m => ({ default: m.PagamentoSucesso })));
 const PagamentoFalha = lazy(() => import('./pages/PagamentoFalha').then(m => ({ default: m.PagamentoFalha })));
+const RedefinirSenha = lazy(() => import('./pages/RedefinirSenha').then(m => ({ default: m.RedefinirSenha })));
 
 function PageLoader() {
   return (
@@ -72,6 +73,7 @@ function App() {
                 <Route path="/beneficios" element={<Beneficios />} />
                 <Route path="/pagamento-sucesso" element={<PagamentoSucesso />} />
                 <Route path="/pagamento-falha" element={<PagamentoFalha />} />
+                <Route path="/redefinir-senha" element={<RedefinirSenha />} />
                 <Route
                   path="/area-membro"
                   element={
