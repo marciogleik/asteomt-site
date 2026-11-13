@@ -471,7 +471,7 @@ export function downloadReciboAnuidade(user: UserData) {
         </div>
 
         <div class="footer">
-          Data do Pagamento: ${today} • Método: Mercado Pago (Processamento Automático)<br>
+          Data do Pagamento: ${today} • Método: Pix via Asaas (Processamento Automático)<br>
           ASTEO-MT — CNPJ 08.629.251/0001-41 • Mato Grosso, Brasil
         </div>
       </div>

@@ -28,7 +28,7 @@ export function PagamentoSucesso() {
           <div className="retorno-info-box">
             {isPending ? (
               <>
-                <p>⚠️ Seu pagamento está em análise pelo Mercado Pago.</p>
+                <p>⚠️ Seu pagamento está em análise pelo Asaas.</p>
                 <p>Assim que for aprovado, suas credenciais de acesso serão enviadas ao seu e-mail automaticamente.</p>
               </>
             ) : (

@@ -5,10 +5,20 @@ const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY as string;
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
+export interface CobrancaPix {
+  success: boolean;
+  payment_id: string;
+  invoice_url: string;
+  pix_payload: string;
+  pix_qrcode_base64: string;
+  pix_expira_em: string;
+  valor: number;
+}
+
 /**
- * Chama a Edge Function de criação de preferência do Mercado Pago
+ * Chama a Edge Function que cria a cobrança Pix da anuidade no Asaas
  */
-export async function criarPreferenciaMP(formData: {
+export async function criarCobrancaAsaas(formData: {
   nomeCompleto: string;
   cpf: string;
   telefone: string;
@@ -16,8 +26,8 @@ export async function criarPreferenciaMP(formData: {
   cidade: string;
   localTrabalho: string;
   tempoExperiencia: string;
-}) {
-  const res = await fetch(`${supabaseUrl}/functions/v1/criar-preferencia-mp`, {
+}): Promise<CobrancaPix> {
+  const res = await fetch(`${supabaseUrl}/functions/v1/criar-cobranca-asaas`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -26,18 +36,31 @@ export async function criarPreferenciaMP(formData: {
     body: JSON.stringify(formData),
   });
 
-  const data = await res.json();
+  const data = await res.json().catch(() => null);
 
   if (!res.ok) {
-    throw new Error(data.error || 'Erro ao criar preferência de pagamento');
+    throw new Error(data?.error || 'Erro ao gerar a cobrança Pix');
   }
 
-  return data as {
-    success: boolean;
-    payment_id: string;
-    init_point: string;
-    sandbox_init_point: string;
-  };
+  return data as CobrancaPix;
+}
+
+/**
+ * Consulta o status de um pagamento: PENDING, PAID, FAILED, CANCELED ou NOT_FOUND
+ */
+export async function consultarStatusPagamento(paymentId: string): Promise<string> {
+  const res = await fetch(
+    `${supabaseUrl}/functions/v1/status-pagamento?id=${encodeURIComponent(paymentId)}`,
+    { headers: { apikey: supabaseAnonKey } },
+  );
+
+  const data = await res.json().catch(() => null);
+
+  if (!res.ok) {
+    throw new Error(data?.error || 'Erro ao consultar o pagamento');
+  }
+
+  return data.status;
 }
 
 export async function solicitarRecuperacaoSenha(email: string) {

@@ -1,6 +1,6 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { criarPreferenciaMP } from '../lib/supabase';
+import { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { criarCobrancaAsaas, consultarStatusPagamento, type CobrancaPix } from '../lib/supabase';
 import { SEO } from '../components/SEO';
 import './Registro.css';
 
@@ -29,6 +29,41 @@ export function Registro() {
   const [errors, setErrors] = useState<Record<string, string | undefined>>({});
   const [isLoading, setIsLoading] = useState(false);
   const [apiError, setApiError] = useState<string | null>(null);
+  const [pix, setPix] = useState<CobrancaPix | null>(null);
+  const [copiado, setCopiado] = useState(false);
+  const navigate = useNavigate();
+
+  // Enquanto o Pix está na tela, consulta o status até o webhook do Asaas confirmar o pagamento
+  useEffect(() => {
+    if (!pix) return;
+    const timer = setInterval(async () => {
+      try {
+        const status = await consultarStatusPagamento(pix.payment_id);
+        if (status === 'PAID') {
+          clearInterval(timer);
+          navigate('/pagamento-sucesso');
+        } else if (status === 'FAILED' || status === 'CANCELED') {
+          clearInterval(timer);
+          setPix(null);
+          setApiError('Este Pix expirou ou foi cancelado. Envie o formulário novamente para gerar um novo.');
+        }
+      } catch {
+        // Falha de rede: tenta de novo no próximo ciclo
+      }
+    }, 5000);
+    return () => clearInterval(timer);
+  }, [pix, navigate]);
+
+  const copiarPix = async () => {
+    if (!pix) return;
+    try {
+      await navigator.clipboard.writeText(pix.pix_payload);
+      setCopiado(true);
+      setTimeout(() => setCopiado(false), 3000);
+    } catch {
+      // Clipboard bloqueado: o código continua visível para copiar manualmente
+    }
+  };
 
   const formatCPF = (value: string) => {
     const numbers = value.replace(/\D/g, '');
@@ -94,7 +129,7 @@ export function Registro() {
     setApiError(null);
 
     try {
-      const result = await criarPreferenciaMP({
+      const result = await criarCobrancaAsaas({
         nomeCompleto: formData.nomeCompleto,
         cpf: formData.cpf,
         telefone: formData.telefone,
@@ -104,14 +139,12 @@ export function Registro() {
         tempoExperiencia: formData.tempoExperiencia,
       });
 
-      // Em ambiente de teste, usa sandbox_init_point. Em produção, usa init_point.
-      const isSandbox = import.meta.env.VITE_MP_SANDBOX === 'true';
-      const checkoutUrl = isSandbox ? result.sandbox_init_point : result.init_point;
-
-      window.location.href = checkoutUrl;
+      setPix(result);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     } catch (err: unknown) {
       const message = err instanceof Error ? err.message : 'Erro inesperado. Tente novamente.';
       setApiError(message);
+    } finally {
       setIsLoading(false);
     }
   };
@@ -141,7 +174,7 @@ export function Registro() {
             <strong>Processo de Filiação:</strong>
             <ol>
               <li>Preenchimento de dados institucionais</li>
-              <li>Pagamento da anuidade (R$ 220,00) via Mercado Pago</li>
+              <li>Pagamento da anuidade (R$ 220,00) via Pix, processado pelo Asaas</li>
               <li>Ativação automática e envio de credenciais por e-mail</li>
             </ol>
           </div>
@@ -154,137 +187,183 @@ export function Registro() {
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="registro-form">
-          <div className="form-group">
-            <label>Nome Completo <span className="required">*</span></label>
-            <input
-              type="text"
-              name="nomeCompleto"
-              value={formData.nomeCompleto}
-              onChange={handleChange}
-              placeholder="Digite seu nome completo"
-              disabled={isLoading}
+        {pix ? (
+          <div className="registro-form pix-box">
+            <h2 className="pix-titulo">Pague com Pix</h2>
+            <p className="pix-instrucao">Escaneie o QR Code no app do seu banco ou use o Pix copia e cola.</p>
+
+            <img
+              src={`data:image/png;base64,${pix.pix_qrcode_base64}`}
+              alt="QR Code Pix da anuidade ASTEO-MT"
+              className="pix-qrcode"
+              width={240}
+              height={240}
             />
-            {errors.nomeCompleto && <span className="error-msg">{errors.nomeCompleto}</span>}
-          </div>
 
-          <div className="form-row">
-            <div className="form-group">
-              <label>CPF <span className="required">*</span></label>
-              <input
-                type="text"
-                name="cpf"
-                value={formData.cpf}
-                onChange={handleChange}
-                placeholder="000.000.000-00"
-                maxLength={14}
-                disabled={isLoading}
-              />
-              {errors.cpf && <span className="error-msg">{errors.cpf}</span>}
-            </div>
-            <div className="form-group">
-              <label>Telefone / WhatsApp <span className="required">*</span></label>
-              <input
-                type="text"
-                name="telefone"
-                value={formData.telefone}
-                onChange={handleChange}
-                placeholder="(66) 00000-0000"
-                maxLength={15}
-                disabled={isLoading}
-              />
-              {errors.telefone && <span className="error-msg">{errors.telefone}</span>}
-            </div>
-          </div>
-
-          <div className="form-group">
-            <label>E-mail <span className="required">*</span></label>
-            <input
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              placeholder="seu@email.com"
-              disabled={isLoading}
-            />
-            {errors.email && <span className="error-msg">{errors.email}</span>}
-          </div>
-
-          <div className="form-row">
-            <div className="form-group">
-              <label>Cidade <span className="required">*</span></label>
-              <input
-                type="text"
-                name="cidade"
-                value={formData.cidade}
-                onChange={handleChange}
-                placeholder="Ex: Cuiabá"
-                disabled={isLoading}
-              />
-              {errors.cidade && <span className="error-msg">{errors.cidade}</span>}
-            </div>
-            <div className="form-group">
-              <label>Tempo de Experiência <span className="required">*</span></label>
-              <input
-                type="text"
-                name="tempoExperiencia"
-                value={formData.tempoExperiencia}
-                onChange={handleChange}
-                placeholder="Ex: 3 anos"
-                disabled={isLoading}
-              />
-              {errors.tempoExperiencia && <span className="error-msg">{errors.tempoExperiencia}</span>}
-            </div>
-          </div>
-
-          <div className="form-group">
-            <label>Local de Trabalho Atual <span className="required">*</span></label>
-            <input
-              type="text"
-              name="localTrabalho"
-              value={formData.localTrabalho}
-              onChange={handleChange}
-              placeholder="Ex: Hospital Municipal de Cuiabá"
-              disabled={isLoading}
-            />
-            {errors.localTrabalho && <span className="error-msg">{errors.localTrabalho}</span>}
-          </div>
-
-          <div className="termos-group">
-            <label className="checkbox-label">
-              <input
-                type="checkbox"
-                name="aceitaTermos"
-                checked={formData.aceitaTermos}
-                onChange={handleChange}
-                disabled={isLoading}
-              />
-              <span>Declaro que li e concordo com o Estatuto da ASTEO-MT e autorizo o processamento dos meus dados para fins de filiação.</span>
-            </label>
-            {errors.aceitaTermos && <span className="error-msg">{errors.aceitaTermos}</span>}
-          </div>
-
-          <div className="valor-anuidade">
-            <span className="valor-label">INVESTIMENTO ANUAL:</span>
-            <span className="valor-preco">R$ 220,00</span>
-          </div>
-
-          <button type="submit" className="btn-submit" disabled={isLoading}>
-            {isLoading ? (
-              <span className="btn-loading">
-                <span className="spinner"></span>
-                Processando...
+            <div className="valor-anuidade">
+              <span className="valor-label">VALOR:</span>
+              <span className="valor-preco">
+                {pix.valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
               </span>
-            ) : (
-              '🔒 PAGAR COM MERCADO PAGO'
-            )}
-          </button>
+            </div>
 
-          <p className="mp-aviso">
-            Você será redirecionado ao Mercado Pago para concluir o pagamento com segurança.<br />
-            Após a confirmação, suas credenciais serão enviadas ao seu e-mail.
-          </p>
-        </form>
+            <label className="pix-label" htmlFor="pix-payload">Pix copia e cola</label>
+            <textarea
+              id="pix-payload"
+              className="pix-payload"
+              readOnly
+              rows={3}
+              value={pix.pix_payload}
+              onFocus={e => e.currentTarget.select()}
+            />
+
+            <button type="button" className="btn-submit" onClick={copiarPix}>
+              {copiado ? '✅ Código copiado' : '📋 Copiar código Pix'}
+            </button>
+
+            <p className="pix-status" role="status">
+              <span className="spinner pix-spinner"></span>
+              Aguardando pagamento. Esta página atualiza sozinha.
+            </p>
+
+            <p className="mp-aviso">
+              Após a confirmação, suas credenciais serão enviadas ao seu e-mail.<br />
+              <a href={pix.invoice_url} target="_blank" rel="noopener noreferrer">Abrir fatura no Asaas</a>
+            </p>
+          </div>
+        ) : (
+          <form onSubmit={handleSubmit} className="registro-form">
+            <div className="form-group">
+              <label>Nome Completo <span className="required">*</span></label>
+              <input
+                type="text"
+                name="nomeCompleto"
+                value={formData.nomeCompleto}
+                onChange={handleChange}
+                placeholder="Digite seu nome completo"
+                disabled={isLoading}
+              />
+              {errors.nomeCompleto && <span className="error-msg">{errors.nomeCompleto}</span>}
+            </div>
+
+            <div className="form-row">
+              <div className="form-group">
+                <label>CPF <span className="required">*</span></label>
+                <input
+                  type="text"
+                  name="cpf"
+                  value={formData.cpf}
+                  onChange={handleChange}
+                  placeholder="000.000.000-00"
+                  maxLength={14}
+                  disabled={isLoading}
+                />
+                {errors.cpf && <span className="error-msg">{errors.cpf}</span>}
+              </div>
+              <div className="form-group">
+                <label>Telefone / WhatsApp <span className="required">*</span></label>
+                <input
+                  type="text"
+                  name="telefone"
+                  value={formData.telefone}
+                  onChange={handleChange}
+                  placeholder="(66) 00000-0000"
+                  maxLength={15}
+                  disabled={isLoading}
+                />
+                {errors.telefone && <span className="error-msg">{errors.telefone}</span>}
+              </div>
+            </div>
+
+            <div className="form-group">
+              <label>E-mail <span className="required">*</span></label>
+              <input
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                placeholder="seu@email.com"
+                disabled={isLoading}
+              />
+              {errors.email && <span className="error-msg">{errors.email}</span>}
+            </div>
+
+            <div className="form-row">
+              <div className="form-group">
+                <label>Cidade <span className="required">*</span></label>
+                <input
+                  type="text"
+                  name="cidade"
+                  value={formData.cidade}
+                  onChange={handleChange}
+                  placeholder="Ex: Cuiabá"
+                  disabled={isLoading}
+                />
+                {errors.cidade && <span className="error-msg">{errors.cidade}</span>}
+              </div>
+              <div className="form-group">
+                <label>Tempo de Experiência <span className="required">*</span></label>
+                <input
+                  type="text"
+                  name="tempoExperiencia"
+                  value={formData.tempoExperiencia}
+                  onChange={handleChange}
+                  placeholder="Ex: 3 anos"
+                  disabled={isLoading}
+                />
+                {errors.tempoExperiencia && <span className="error-msg">{errors.tempoExperiencia}</span>}
+              </div>
+            </div>
+
+            <div className="form-group">
+              <label>Local de Trabalho Atual <span className="required">*</span></label>
+              <input
+                type="text"
+                name="localTrabalho"
+                value={formData.localTrabalho}
+                onChange={handleChange}
+                placeholder="Ex: Hospital Municipal de Cuiabá"
+                disabled={isLoading}
+              />
+              {errors.localTrabalho && <span className="error-msg">{errors.localTrabalho}</span>}
+            </div>
+
+            <div className="termos-group">
+              <label className="checkbox-label">
+                <input
+                  type="checkbox"
+                  name="aceitaTermos"
+                  checked={formData.aceitaTermos}
+                  onChange={handleChange}
+                  disabled={isLoading}
+                />
+                <span>Declaro que li e concordo com o Estatuto da ASTEO-MT e autorizo o processamento dos meus dados para fins de filiação.</span>
+              </label>
+              {errors.aceitaTermos && <span className="error-msg">{errors.aceitaTermos}</span>}
+            </div>
+
+            <div className="valor-anuidade">
+              <span className="valor-label">INVESTIMENTO ANUAL:</span>
+              <span className="valor-preco">R$ 220,00</span>
+            </div>
+
+            <button type="submit" className="btn-submit" disabled={isLoading}>
+              {isLoading ? (
+                <span className="btn-loading">
+                  <span className="spinner"></span>
+                  Processando...
+                </span>
+              ) : (
+                '🔒 GERAR PIX DE PAGAMENTO'
+              )}
+            </button>
+
+            <p className="mp-aviso">
+              O pagamento é feito via Pix e processado com segurança pelo Asaas.<br />
+              Após a confirmação, suas credenciais serão enviadas ao seu e-mail.
+            </p>
+          </form>
+        )}
       </div>
     </div>
   );
