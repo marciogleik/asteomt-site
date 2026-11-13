@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { criarCobrancaAsaas, consultarStatusPagamento, type CobrancaPix } from '../lib/supabase';
 import { SEO } from '../components/SEO';
@@ -32,6 +32,12 @@ export function Registro() {
   const [pix, setPix] = useState<CobrancaPix | null>(null);
   const [copiado, setCopiado] = useState(false);
   const navigate = useNavigate();
+  const erroRef = useRef<HTMLDivElement>(null);
+
+  // A caixa de erro fica no topo; no celular o usuário está lá embaixo, no botão
+  useEffect(() => {
+    if (apiError) erroRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }, [apiError]);
 
   // Enquanto o Pix está na tela, consulta o status até o webhook do Asaas confirmar o pagamento
   useEffect(() => {
@@ -181,7 +187,7 @@ export function Registro() {
         </div>
 
         {apiError && (
-          <div className="erro-api-box">
+          <div className="erro-api-box" ref={erroRef} role="alert">
             <span>⚠️</span>
             <span>{apiError}</span>
           </div>
