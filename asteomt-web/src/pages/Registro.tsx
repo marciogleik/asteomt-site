@@ -4,6 +4,8 @@ import { criarCobrancaAsaas, consultarStatusPagamento, type CobrancaPix } from '
 import { SEO } from '../components/SEO';
 import './Registro.css';
 
+const SENHA_MINIMA = 8; // mesmo mínimo das Edge Functions criar-cobranca-asaas e recuperar-senha
+
 interface FormData {
   nomeCompleto: string;
   cpf: string;
@@ -12,6 +14,8 @@ interface FormData {
   cidade: string;
   localTrabalho: string;
   tempoExperiencia: string;
+  senha: string;
+  confirmarSenha: string;
   aceitaTermos: boolean;
 }
 
@@ -24,6 +28,8 @@ export function Registro() {
     cidade: '',
     localTrabalho: '',
     tempoExperiencia: '',
+    senha: '',
+    confirmarSenha: '',
     aceitaTermos: false,
   });
   const [errors, setErrors] = useState<Record<string, string | undefined>>({});
@@ -121,6 +127,8 @@ export function Registro() {
     if (!formData.cidade.trim()) newErrors.cidade = 'Cidade é obrigatória';
     if (!formData.localTrabalho.trim()) newErrors.localTrabalho = 'Local de trabalho é obrigatório';
     if (!formData.tempoExperiencia.trim()) newErrors.tempoExperiencia = 'Tempo de experiência é obrigatório';
+    if (formData.senha.length < SENHA_MINIMA) newErrors.senha = `A senha precisa ter pelo menos ${SENHA_MINIMA} caracteres`;
+    if (formData.confirmarSenha !== formData.senha) newErrors.confirmarSenha = 'As senhas não são iguais';
     if (!formData.aceitaTermos) newErrors.aceitaTermos = 'Você deve aceitar os termos para continuar';
 
     setErrors(newErrors);
@@ -143,6 +151,7 @@ export function Registro() {
         cidade: formData.cidade,
         localTrabalho: formData.localTrabalho,
         tempoExperiencia: formData.tempoExperiencia,
+        senha: formData.senha,
       });
 
       setPix(result);
@@ -181,7 +190,7 @@ export function Registro() {
             <ol>
               <li>Preenchimento de dados institucionais</li>
               <li>Pagamento da anuidade (R$ 220,00) via Pix, processado pelo Asaas</li>
-              <li>Ativação automática e envio de credenciais por e-mail</li>
+              <li>Ativação automática: é só entrar com seu e-mail e a senha que você criou</li>
             </ol>
           </div>
         </div>
@@ -233,7 +242,7 @@ export function Registro() {
             </p>
 
             <p className="mp-aviso">
-              Após a confirmação, suas credenciais serão enviadas ao seu e-mail.<br />
+              Após a confirmação, entre no portal com seu e-mail e a senha que você criou.<br />
               <a href={pix.invoice_url} target="_blank" rel="noopener noreferrer">Abrir fatura no Asaas</a>
             </p>
           </div>
@@ -289,9 +298,41 @@ export function Registro() {
                 value={formData.email}
                 onChange={handleChange}
                 placeholder="seu@email.com"
+                autoComplete="username"
                 disabled={isLoading}
               />
               {errors.email && <span className="error-msg">{errors.email}</span>}
+            </div>
+
+            <div className="form-row">
+              <div className="form-group">
+                <label htmlFor="senha">Crie uma senha <span className="required">*</span></label>
+                <input
+                  id="senha"
+                  type="password"
+                  name="senha"
+                  value={formData.senha}
+                  onChange={handleChange}
+                  placeholder={`Mínimo ${SENHA_MINIMA} caracteres`}
+                  autoComplete="new-password"
+                  disabled={isLoading}
+                />
+                {errors.senha && <span className="error-msg">{errors.senha}</span>}
+              </div>
+              <div className="form-group">
+                <label htmlFor="confirmarSenha">Repita a senha <span className="required">*</span></label>
+                <input
+                  id="confirmarSenha"
+                  type="password"
+                  name="confirmarSenha"
+                  value={formData.confirmarSenha}
+                  onChange={handleChange}
+                  placeholder="Digite a senha de novo"
+                  autoComplete="new-password"
+                  disabled={isLoading}
+                />
+                {errors.confirmarSenha && <span className="error-msg">{errors.confirmarSenha}</span>}
+              </div>
             </div>
 
             <div className="form-row">
@@ -366,7 +407,7 @@ export function Registro() {
 
             <p className="mp-aviso">
               O pagamento é feito via Pix e processado com segurança pelo Asaas.<br />
-              Após a confirmação, suas credenciais serão enviadas ao seu e-mail.
+              Após a confirmação, entre no portal com seu e-mail e a senha que você criou.
             </p>
           </form>
         )}

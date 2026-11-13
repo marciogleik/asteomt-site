@@ -26,6 +26,7 @@ export async function criarCobrancaAsaas(formData: {
   cidade: string;
   localTrabalho: string;
   tempoExperiencia: string;
+  senha: string;
 }): Promise<CobrancaPix> {
   const res = await fetch(`${supabaseUrl}/functions/v1/criar-cobranca-asaas`, {
     method: 'POST',

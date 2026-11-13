@@ -29,12 +29,11 @@ export function PagamentoSucesso() {
             {isPending ? (
               <>
                 <p>⚠️ Seu pagamento está em análise pelo Asaas.</p>
-                <p>Assim que for aprovado, suas credenciais de acesso serão enviadas ao seu e-mail automaticamente.</p>
+                <p>Assim que for aprovado, sua filiação será ativada automaticamente.</p>
               </>
             ) : (
               <>
-                <p>📧 Verifique sua caixa de entrada — enviamos um e-mail com suas <strong>credenciais de acesso</strong> ao portal do associado.</p>
-                <p>⏱️ Se o e-mail não aparecer em alguns minutos, confira também a pasta de <strong>Spam</strong>.</p>
+                <p>🔑 Para entrar no portal do associado, use seu <strong>e-mail</strong> e a <strong>senha que você criou</strong> no cadastro.</p>
               </>
             )}
           </div>
@@ -42,9 +41,8 @@ export function PagamentoSucesso() {
           <div className="retorno-proximos-passos">
             <h3>Próximos Passos</h3>
             <ol>
-              <li>Acesse seu e-mail e encontre a mensagem da ASTEO-MT</li>
-              <li>Use as credenciais recebidas para fazer login no portal</li>
-              <li>Altere sua senha no primeiro acesso</li>
+              <li>Clique em "Acessar o Portal do Associado"</li>
+              <li>Entre com seu e-mail e a senha que você criou no cadastro</li>
               <li>Explore todos os benefícios exclusivos para associados</li>
             </ol>
           </div>
