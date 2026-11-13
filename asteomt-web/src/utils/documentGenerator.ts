@@ -464,10 +464,10 @@ export function downloadReciboAnuidade(user: UserData) {
           <h3 style="margin-top: 15px; color: #0b2d52;">RECIBO DE QUITAÇÃO DE ANUIDADE</h3>
         </div>
 
-        <div class="amount">R$ 186,00 (Cento e Oitenta e Seis Reais)</div>
+        <div class="amount">R$ 220,00 (Duzentos e Vinte Reais)</div>
 
         <div class="text">
-          Recebemos de <strong>${name}</strong> a quantia de R$ 186,00 referente ao pagamento da <strong>Anuidade Institucional do Exercício 2026</strong> da ASTEO-MT, conferindo-lhe quitação plena e direito a todos os benefícios de associado ativo.
+          Recebemos de <strong>${name}</strong> a quantia de R$ 220,00 referente ao pagamento da <strong>Anuidade Institucional do Exercício 2026</strong> da ASTEO-MT, conferindo-lhe quitação plena e direito a todos os benefícios de associado ativo.
         </div>
 
         <div class="footer">

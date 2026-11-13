@@ -141,7 +141,7 @@ export function Registro() {
             <strong>Processo de Filiação:</strong>
             <ol>
               <li>Preenchimento de dados institucionais</li>
-              <li>Pagamento da anuidade (R$ 186,00) via Mercado Pago</li>
+              <li>Pagamento da anuidade (R$ 220,00) via Mercado Pago</li>
               <li>Ativação automática e envio de credenciais por e-mail</li>
             </ol>
           </div>
@@ -266,7 +266,7 @@ export function Registro() {
 
           <div className="valor-anuidade">
             <span className="valor-label">INVESTIMENTO ANUAL:</span>
-            <span className="valor-preco">R$ 186,00</span>
+            <span className="valor-preco">R$ 220,00</span>
           </div>
 
           <button type="submit" className="btn-submit" disabled={isLoading}>

@@ -275,7 +275,7 @@ export function MemberDashboard() {
                 <div className="stat-icon-wrapper"><FiCreditCard /></div>
                 <div className="stat-info">
                   <h4>Anuidade 2026</h4>
-                  <div className="stat-value text-green">R$ 186,00 (Quitada)</div>
+                  <div className="stat-value text-green">R$ 220,00 (Quitada)</div>
                 </div>
               </div>
 
@@ -704,7 +704,7 @@ export function MemberDashboard() {
                 <tbody>
                   <tr>
                     <td><strong>Anuidade 2026</strong></td>
-                    <td>R$ 186,00</td>
+                    <td>R$ 220,00</td>
                     <td>31/03/2026</td>
                     <td>28/07/2026</td>
                     <td><span className="status-badge status-active">QUITADO</span></td>
