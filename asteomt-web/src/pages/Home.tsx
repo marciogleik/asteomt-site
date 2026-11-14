@@ -203,7 +203,7 @@ export function Home() {
           <div className="cta-box">
             <div className="cta-content">
               <h2>Mantenha sua documentação em dia</h2>
-              <p>Associados têm acesso a certificados online, material técnico exclusivo e suporte jurídico.</p>
+              <p>Associados têm acesso a carteira digital, certidão de regularidade, certificados online e material técnico exclusivo. Mantenha sua filiação e sua Certidão de Regularidade em dia: elas comprovam seu vínculo com a entidade de classe da categoria em Mato Grosso, documento que pode ser solicitado em editais e processos seletivos.</p>
             </div>
             <Link to="/registro" className="btn-accent">QUERO SER ASSOCIADO</Link>
           </div>

@@ -26,7 +26,7 @@ export function Contato() {
                 <FiMail className="info-icon" />
                 <div>
                   <strong style={{ display: 'block', fontSize: '0.9rem', color: 'var(--text-muted)' }}>E-mail</strong>
-                  <a href="mailto:asteo.mt@hotmail.com" style={{ fontWeight: 600 }}>asteo.mt@hotmail.com</a>
+                  <a href="mailto:contato@asteomt.com.br" style={{ fontWeight: 600 }}>contato@asteomt.com.br</a>
                 </div>
               </div>
               <div className="info-item">

@@ -42,7 +42,7 @@ const Footer: React.FC = () => {
             <ul className="contact-list">
               <li>
                 <FiMail className="contact-icon" />
-                <a href="mailto:asteo.mt@hotmail.com">asteo.mt@hotmail.com</a>
+                <a href="mailto:contato@asteomt.com.br">contato@asteomt.com.br</a>
               </li>
               <li>
                 <FiPhone className="contact-icon" />

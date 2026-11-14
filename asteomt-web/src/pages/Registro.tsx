@@ -168,7 +168,7 @@ export function Registro() {
     <div className="registro-page">
       <SEO
         title="Filiar-se à ASTEO-MT | Cadastro de Associados"
-        description="Associe-se à Associação Matogrossense dos Técnicos de Imobilizações Ortopédicas. Garanta sua carteira profissional, convênios e suporte jurídico."
+        description="Associe-se à Associação Matogrossense dos Técnicos de Imobilizações Ortopédicas. Garanta sua carteira profissional, certidão de regularidade e convênios exclusivos."
         path="/registro"
       />
       <div className="registro-container">
